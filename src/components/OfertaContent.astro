@@ -357,7 +357,7 @@ const forzecHref = 'https://forzec.com';
             <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">{tpl.name}</h3>
             <p class="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">{tpl.audience}</p>
             <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5 flex-1">{tpl.description}</p>
-            <a href={`/oferta-de-lanzamiento/demo/${tpl.slug}`} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-100 hover:border-indigo-300 dark:hover:border-indigo-700 hover:text-indigo-700 dark:hover:text-indigo-400 transition-colors">
+            <a href={`/oferta-de-lanzamiento/demo/${tpl.slug}`} target="_blank" rel="noopener" data-demo-link class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-100 hover:border-indigo-300 dark:hover:border-indigo-700 hover:text-indigo-700 dark:hover:text-indigo-400 transition-colors">
               {t.templatesViewDemo}
               <Icon name="arrow-up-right" class="w-3.5 h-3.5" />
             </a>
@@ -482,3 +482,16 @@ const forzecHref = 'https://forzec.com';
     </div>
   </div>
 </section>
+
+<script is:inline>
+  // Abrir las demos con window.open (no solo target="_blank") para que la
+  // pestaña quede como "abierta por script" y su botón "Volver a la oferta"
+  // pueda cerrarla y devolver el foco a esta pestaña.
+  document.querySelectorAll('a[data-demo-link]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      window.open(a.href, '_blank');
+    });
+  });
+</script>

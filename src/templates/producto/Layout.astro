@@ -35,9 +35,22 @@ const { title, description, isDemo = false, noindex = false, heroPreload } = Ast
     <slot />
 
     {isDemo && (
-      <a href="/oferta-de-lanzamiento" class="demo-badge">
-        ← Volver a la oferta
-      </a>
+      <Fragment>
+        <a href="/oferta-de-lanzamiento" class="demo-badge" data-back-to-offer>
+          ← Volver a la oferta
+        </a>
+        <script is:inline>
+          // Si la demo se abrió desde la oferta (pestaña con opener), cerrarla y
+          // volver a esa pestaña. Si se llegó por enlace directo, navegar.
+          document.querySelector('[data-back-to-offer]')?.addEventListener('click', (e) => {
+            if (window.opener && !window.opener.closed) {
+              e.preventDefault();
+              try { window.opener.focus(); } catch (err) {}
+              window.close();
+            }
+          });
+        </script>
+      </Fragment>
     )}
 
     <script>
