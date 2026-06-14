@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBack from '../../components/NavBack.astro';
+import ProjectsContent from '../../components/ProjectsContent.astro';
+import FooterContact from '../../components/FooterContact.astro';
+---
+
+<Layout titleKey="meta.projects.title" descriptionKey="meta.projects.description" pathWithoutLang="/proyectos">
+  <NavBack pathWithoutLang="/proyectos" />
+  <ProjectsContent />
+  <FooterContact />
+</Layout>

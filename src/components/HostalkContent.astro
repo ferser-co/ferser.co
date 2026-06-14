@@ -1,0 +1,252 @@
+---
+import { getLangFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import type { TranslationKey } from '../i18n/ui';
+import HostalkChatPreview from './HostalkChatPreview.astro';
+
+import Icon from './Icon.astro';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const projectsHref = localizedPath(lang, '/proyectos');
+
+const features: Array<{ icon: string; titleKey: TranslationKey; descKey: TranslationKey }> = [
+  { icon: 'mic', titleKey: 'hostalk.feature1.title', descKey: 'hostalk.feature1.desc' },
+  { icon: 'languages', titleKey: 'hostalk.feature2.title', descKey: 'hostalk.feature2.desc' },
+  { icon: 'message-square', titleKey: 'hostalk.feature3.title', descKey: 'hostalk.feature3.desc' },
+  { icon: 'zap', titleKey: 'hostalk.feature4.title', descKey: 'hostalk.feature4.desc' },
+  { icon: 'monitor-smartphone', titleKey: 'hostalk.feature5.title', descKey: 'hostalk.feature5.desc' },
+  { icon: 'history', titleKey: 'hostalk.feature6.title', descKey: 'hostalk.feature6.desc' },
+];
+
+const stack = {
+  frontend: ['React + Vite', 'Tailwind CSS', 'Web Speech API'],
+  backend: ['FastAPI async', 'WebSockets', 'PostgreSQL'],
+  infra: ['Docker', 'Caddy', 'VPS Hostinger'],
+};
+
+const doneItems: TranslationKey[] = [
+  'hostalk.status.done1',
+  'hostalk.status.done2',
+  'hostalk.status.done3',
+  'hostalk.status.done4',
+];
+const nextItems: TranslationKey[] = [
+  'hostalk.status.next1',
+  'hostalk.status.next2',
+  'hostalk.status.next3',
+  'hostalk.status.next4',
+];
+---
+
+<section class="relative pt-32 pb-16 overflow-hidden">
+  <div class="blob bg-blue-300 dark:bg-blue-700 w-96 h-96 rounded-full top-10 left-[-100px] opacity-25"></div>
+  <div class="blob bg-cyan-300 dark:bg-cyan-700 w-80 h-80 rounded-full top-32 right-[-50px] animation-delay-2000 opacity-25"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <a
+      href={projectsHref}
+      class="inline-flex items-center gap-1.5 mb-6 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors fade-in-up"
+    >
+      <Icon name="arrow-left" class="w-4 h-4" />
+      {t('hostalk.breadcrumb')}
+    </a>
+
+    <div class="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+      <div class="fade-in-up">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+            {t('projects.status.development')}
+          </span>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl font-black tracking-tighter text-slate-900 dark:text-white mb-3">
+          {t('projects.hostalk.title')}
+        </h1>
+        <p class="text-xl text-blue-700 dark:text-blue-400 font-semibold mb-6">
+          {t('projects.hostalk.tagline')}
+        </p>
+
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
+          {t('projects.hostalk.brief')}
+        </p>
+
+        <a
+          href="https://hostalk.ferser.co"
+          class="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 dark:bg-blue-500 dark:hover:bg-blue-400 transition-all"
+        >
+          {t('projects.hostalk.cta.app')}
+          <Icon name="arrow-up-right" class="w-4 h-4" />
+        </a>
+      </div>
+
+      <div class="fade-in-up" style="transition-delay: 0.1s;">
+        <HostalkChatPreview />
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Visión general */}
+<section class="py-20 bg-white/40 dark:bg-slate-950/40">
+  <div class="max-w-3xl mx-auto px-6 fade-in-up">
+    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-8">
+      {t('hostalk.overview.title')}
+    </h2>
+    <p class="text-base sm:text-lg leading-relaxed text-slate-700 dark:text-slate-300 mb-5">
+      {t('hostalk.overview.body1')}
+    </p>
+    <p class="text-base sm:text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+      {t('hostalk.overview.body2')}
+    </p>
+  </div>
+</section>
+
+{/* Características */}
+<section class="py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 fade-in-up">
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+        {t('hostalk.features.title')}
+      </h2>
+      <p class="text-lg text-slate-600 dark:text-slate-300">{t('hostalk.features.subtitle')}</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map(({ icon, titleKey, descKey }, i) => (
+        <div
+          class="fade-in-up p-6 rounded-2xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+          style={`transition-delay: ${i * 60}ms;`}
+        >
+          <div class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 flex items-center justify-center mb-4">
+            <i data-lucide={icon} class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1.5">{t(titleKey)}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{t(descKey)}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Stack tecnológico */}
+<section class="py-20 bg-white/40 dark:bg-slate-950/40">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-10 fade-in-up">
+      {t('hostalk.stack.title')}
+    </h2>
+
+    <div class="grid sm:grid-cols-3 gap-8">
+      <div class="fade-in-up">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+          {t('hostalk.stack.frontend')}
+        </h3>
+        <ul class="space-y-2">
+          {stack.frontend.map((item) => (
+            <li class="text-base text-slate-700 dark:text-slate-200 font-medium flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="fade-in-up" style="transition-delay: 0.1s;">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+          {t('hostalk.stack.backend')}
+        </h3>
+        <ul class="space-y-2">
+          {stack.backend.map((item) => (
+            <li class="text-base text-slate-700 dark:text-slate-200 font-medium flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="fade-in-up" style="transition-delay: 0.2s;">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+          {t('hostalk.stack.infra')}
+        </h3>
+        <ul class="space-y-2">
+          {stack.infra.map((item) => (
+            <li class="text-base text-slate-700 dark:text-slate-200 font-medium flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Estado actual */}
+<section class="py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl mb-12 fade-in-up">
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+        {t('hostalk.status.title')}
+      </h2>
+      <p class="text-lg text-slate-600 dark:text-slate-300">{t('hostalk.status.subtitle')}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="fade-in-up rounded-2xl border border-green-100 dark:border-green-900/40 bg-green-50/50 dark:bg-green-900/10 p-6 sm:p-8">
+        <h3 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-green-700 dark:text-green-400 mb-5">
+          <Icon name="circle-check-big" class="w-4 h-4" />
+          {t('hostalk.status.done')}
+        </h3>
+        <ul class="space-y-3">
+          {doneItems.map((key) => (
+            <li class="flex items-start gap-3">
+              <Icon name="check" class="w-4 h-4 mt-1 shrink-0 text-green-600 dark:text-green-400" />
+              <span class="text-sm sm:text-base text-slate-700 dark:text-slate-200">{t(key)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="fade-in-up rounded-2xl border border-slate-100 dark:border-slate-700 bg-white/60 dark:bg-slate-900/60 p-6 sm:p-8" style="transition-delay: 0.1s;">
+        <h3 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-5">
+          <Icon name="clock" class="w-4 h-4" />
+          {t('hostalk.status.next')}
+        </h3>
+        <ul class="space-y-3">
+          {nextItems.map((key) => (
+            <li class="flex items-start gap-3">
+              <Icon name="circle" class="w-4 h-4 mt-1 shrink-0 text-slate-400 dark:text-slate-500" />
+              <span class="text-sm sm:text-base text-slate-700 dark:text-slate-200">{t(key)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* CTA final */}
+<section class="py-20 bg-white/40 dark:bg-slate-950/40">
+  <div class="max-w-3xl mx-auto px-6 text-center fade-in-up">
+    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+      {t('hostalk.cta.title')}
+    </h2>
+    <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">{t('hostalk.cta.subtitle')}</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a
+        href="https://hostalk.ferser.co"
+        class="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-base font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 dark:bg-blue-500 dark:hover:bg-blue-400 transition-all"
+      >
+        {t('projects.hostalk.cta.app')}
+        <Icon name="arrow-up-right" class="w-4 h-4" />
+      </a>
+      <a
+        href={projectsHref}
+        class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-all"
+      >
+        <Icon name="arrow-left" class="w-4 h-4" />
+        {t('hostalk.cta.back')}
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+---
+import type { LocalData } from './data';
+
+interface Props {
+  data: LocalData;
+}
+
+const { data } = Astro.props;
+
+const spanClass = (span?: string) => {
+  if (span === 'tall') return 'row-span-2 aspect-[3/4]';
+  if (span === 'wide') return 'col-span-2 aspect-[2/1]';
+  return 'aspect-square';
+};
+---
+
+<section id="galeria" class="py-20 sm:py-28 bg-amber-50/30">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-14 reveal">
+      <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-900">
+        <span class="h-px w-8 bg-amber-900"></span>
+        Galería
+      </p>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-stone-900 mb-3">
+        {data.gallery.title}
+      </h2>
+      <p class="text-base sm:text-lg text-stone-600">{data.gallery.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px] sm:auto-rows-[240px]">
+      {data.gallery.images.map((img, i) => (
+        <div
+          class={`reveal overflow-hidden rounded-2xl group ${spanClass(img.span)}`}
+          style={`transition-delay: ${i * 50}ms;`}
+        >
+          <img
+            src={img.src}
+            alt={img.alt}
+            loading="lazy"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

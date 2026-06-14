@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Demos de plantillas — no indexar (son ejemplos ficticios)
+Disallow: /oferta/demo/
+
+Sitemap: https://ferser.co/sitemap-index.xml

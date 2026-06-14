@@ -1,0 +1,75 @@
+---
+import type { ProductoData } from './data';
+
+import Icon from '../../components/Icon.astro';
+interface Props {
+  data: ProductoData;
+}
+
+const { data } = Astro.props;
+---
+
+<section id="precios" class="py-20 sm:py-28 bg-white">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+      <p class="mb-3 inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-indigo-700">
+        {data.pricing.eyebrow}
+      </p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tighter text-slate-900 mb-4">
+        {data.pricing.title}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600">{data.pricing.subtitle}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+      {data.pricing.tiers.map((tier, i) => (
+        <article
+          class={`reveal relative rounded-3xl border p-8 sm:p-10 ${
+            tier.highlighted
+              ? 'border-indigo-600 bg-gradient-to-br from-indigo-50/50 to-white shadow-2xl shadow-indigo-500/10 ring-1 ring-indigo-600/10'
+              : 'border-slate-200 bg-white shadow-sm'
+          }`}
+          style={`transition-delay: ${i * 80}ms;`}
+        >
+          {tier.badge && (
+            <span class="absolute -top-3 left-8 inline-flex items-center gap-1 rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 px-3 py-1 text-xs font-bold text-white shadow-md">
+              <Icon name="sparkles" class="w-3 h-3" />
+              {tier.badge}
+            </span>
+          )}
+
+          <h3 class="text-xl font-bold text-slate-900 mb-1">{tier.name}</h3>
+          <p class="text-sm text-slate-500 mb-6">{tier.description}</p>
+
+          <div class="mb-7">
+            <span class="text-5xl font-black tracking-tighter text-slate-900">{tier.price}</span>
+            {tier.period && <span class="text-base font-semibold text-slate-500 ml-1">{tier.period}</span>}
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            {tier.features.map((f) => (
+              <li class="flex items-start gap-3 text-sm">
+                <Icon
+                  name="check"
+                  class={`w-4 h-4 mt-0.5 shrink-0 ${tier.highlighted ? 'text-indigo-600' : 'text-emerald-600'}`}
+                />
+                <span class="text-slate-700">{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={tier.cta.href}
+            class={`block w-full text-center rounded-lg px-6 py-3.5 text-sm font-bold transition-all ${
+              tier.highlighted
+                ? 'bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/40 hover:-translate-y-0.5'
+                : 'bg-slate-900 text-white hover:bg-slate-800'
+            }`}
+          >
+            {tier.cta.label}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

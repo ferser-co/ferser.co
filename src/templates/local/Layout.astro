@@ -1,0 +1,65 @@
+---
+import '../_shared/base.css';
+
+interface Props {
+  title: string;
+  description: string;
+  isDemo?: boolean;
+  noindex?: boolean;
+  heroPreload?: string;
+}
+
+const { title, description, isDemo = false, noindex = false, heroPreload } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#92400e" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    {heroPreload && <link rel="preload" as="image" href={heroPreload} fetchpriority="high" />}
+
+    <style>
+      .font-display {
+        font-family: 'Playfair Display', Georgia, serif;
+      }
+    </style>
+  </head>
+  <body class="bg-amber-50/30 text-stone-900 antialiased">
+    <slot />
+
+    {isDemo && (
+      <a href="/oferta-de-lanzamiento" class="demo-badge">
+        ← Volver a la oferta
+      </a>
+    )}
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.15 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

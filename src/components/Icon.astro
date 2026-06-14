@@ -1,0 +1,57 @@
+---
+/**
+ * Icono Lucide renderizado como SVG inline en build time.
+ * Cero JS en runtime — el SVG queda dentro del HTML estático.
+ *
+ * <Icon name="arrow-right" class="w-4 h-4" />
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+interface Props {
+  name: string;
+  class?: string;
+  size?: number | string;
+  strokeWidth?: number | string;
+  ariaLabel?: string;
+}
+
+const { name, class: className, size, strokeWidth, ariaLabel } = Astro.props;
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+const iconPath = path.resolve(here, '../../node_modules/lucide-static/icons', `${name}.svg`);
+
+let svg = '';
+try {
+  svg = fs.readFileSync(iconPath, 'utf-8');
+} catch (e) {
+  console.warn(`[Icon] '${name}' no existe en lucide-static`);
+}
+
+if (svg) {
+  // Reemplazar el atributo class del SVG (lucide trae uno por defecto)
+  if (className) {
+    if (/class="[^"]*"/.test(svg)) {
+      svg = svg.replace(/class="[^"]*"/, `class="${className}"`);
+    } else {
+      svg = svg.replace(/<svg\s/, `<svg class="${className}" `);
+    }
+  }
+  if (size !== undefined) {
+    svg = svg
+      .replace(/width="\d+"/, `width="${size}"`)
+      .replace(/height="\d+"/, `height="${size}"`);
+  }
+  if (strokeWidth !== undefined) {
+    svg = svg.replace(/stroke-width="[^"]*"/, `stroke-width="${strokeWidth}"`);
+  }
+  if (ariaLabel) {
+    svg = svg.replace(/<svg\s/, `<svg role="img" aria-label="${ariaLabel}" `);
+  } else {
+    svg = svg.replace(/<svg\s/, `<svg aria-hidden="true" focusable="false" `);
+  }
+}
+---
+
+<Fragment set:html={svg} />

@@ -1,0 +1,43 @@
+---
+import type { LocalData } from './data';
+
+import Icon from '../../components/Icon.astro';
+interface Props {
+  data: LocalData;
+}
+
+const { data } = Astro.props;
+---
+
+<header class="fixed inset-x-0 top-0 z-40 border-b border-stone-200/50 bg-white/85 backdrop-blur-xl supports-[backdrop-filter]:bg-white/70">
+  <nav aria-label="Principal" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-2.5">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-amber-900 text-base font-black text-amber-50">
+          {data.brand.initial}
+        </span>
+        <div class="leading-tight">
+          <div class="text-base sm:text-lg font-display font-bold tracking-tight text-stone-900">{data.brand.name}</div>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center gap-6">
+        {data.nav.map((item) => (
+          <a href={item.href} class="text-sm font-semibold text-stone-600 hover:text-amber-900 transition-colors">
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      {data.navCta && (
+        <a
+          href={data.navCta.href}
+          class="inline-flex items-center gap-1.5 rounded-full bg-amber-900 px-4 py-2 text-sm font-bold text-amber-50 shadow-sm hover:bg-amber-800 transition-colors"
+        >
+          <Icon name="utensils" class="w-3.5 h-3.5" />
+          {data.navCta.label}
+        </a>
+      )}
+    </div>
+  </nav>
+</header>

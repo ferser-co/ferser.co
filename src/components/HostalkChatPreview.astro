@@ -1,0 +1,38 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class="relative rounded-2xl border border-slate-200/60 dark:border-slate-700/60 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-900 p-6 sm:p-8 shadow-sm">
+  <div class="absolute top-4 right-4 flex gap-1.5">
+    <span class="w-2 h-2 rounded-full bg-red-400"></span>
+    <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+    <span class="w-2 h-2 rounded-full bg-green-400"></span>
+  </div>
+
+  <div class="space-y-4 mt-8">
+    {/* Guest message */}
+    <div>
+      <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1.5">
+        {t('projects.hostalk.preview.guest')}
+      </div>
+      <div class="rounded-2xl rounded-tl-sm bg-white dark:bg-slate-700 px-4 py-2.5 shadow-sm">
+        <p class="text-sm text-slate-800 dark:text-slate-100">{t('projects.hostalk.preview.msg1')}</p>
+        <p class="mt-1 text-xs text-slate-400 dark:text-slate-500 italic">→ {t('projects.hostalk.preview.msg1.translated')}</p>
+      </div>
+    </div>
+
+    {/* Staff message */}
+    <div class="pl-6">
+      <div class="text-[10px] font-bold uppercase tracking-wider text-blue-500 dark:text-blue-400 mb-1.5 text-right">
+        {t('projects.hostalk.preview.staff')}
+      </div>
+      <div class="rounded-2xl rounded-tr-sm bg-blue-600 dark:bg-blue-500 px-4 py-2.5 shadow-sm">
+        <p class="text-sm text-white">{t('projects.hostalk.preview.msg2')}</p>
+        <p class="mt-1 text-xs text-blue-100 dark:text-blue-200 italic">→ {t('projects.hostalk.preview.msg2.translated')}</p>
+      </div>
+    </div>
+  </div>
+</div>

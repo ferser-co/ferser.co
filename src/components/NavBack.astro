@@ -1,0 +1,49 @@
+---
+import { getLangFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import LangSwitcher from './LangSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import CurrencySwitcher from './CurrencySwitcher.astro';
+
+import Icon from './Icon.astro';
+interface Props {
+  pathWithoutLang: string;
+}
+
+const { pathWithoutLang } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const homeHref = localizedPath(lang, '/');
+---
+
+<header class="fixed inset-x-0 top-0 z-50">
+  <nav
+    aria-label="Principal"
+    class="border-b border-slate-200/60 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:border-slate-800/60 dark:bg-slate-950/70 dark:supports-[backdrop-filter]:bg-slate-950/60 transition-colors"
+  >
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between gap-3 sm:gap-4">
+        <a
+          href={homeHref}
+          class="text-2xl sm:text-3xl font-black tracking-tight text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+          aria-label="Ferser — Inicio"
+        >
+          Ferser
+        </a>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <CurrencySwitcher />
+          <ThemeToggle />
+          <LangSwitcher pathWithoutLang={pathWithoutLang} />
+          <a
+            href={homeHref}
+            class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 sm:px-5 py-2 text-sm sm:text-base font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:shadow-md dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-200 dark:hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-blue-600 transition-all"
+            aria-label={t('nav.back')}
+          >
+            <Icon name="arrow-left" class="w-4 h-4" />
+            <span class="hidden sm:inline">{t('nav.back')}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

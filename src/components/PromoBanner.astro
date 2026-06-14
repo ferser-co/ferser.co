@@ -1,0 +1,64 @@
+---
+import { getLangFromUrl, localizedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const path = Astro.url.pathname;
+
+// Ocultar dentro de la página de oferta para no ser redundante.
+const onOfertaPage = /^\/(oferta-de-lanzamiento|en\/launch-offer)(\/|$)/.test(path);
+const ofertaHref = localizedPath(lang, '/oferta-de-lanzamiento');
+
+const t = lang === 'es'
+  ? { eyebrow: 'Oferta de lanzamiento', body: 'Sitio + hosting + dominio por', cta: 'Saber más', close: 'Cerrar anuncio' }
+  : { eyebrow: 'Launch offer',           body: 'Website + hosting + domain for',  cta: 'Learn more', close: 'Close announcement' };
+---
+
+{!onOfertaPage && (
+  <div id="promo-banner" class="relative bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 text-white text-sm">
+    <a href={ofertaHref} class="block hover:brightness-110 transition-[filter]">
+      <div class="mx-auto max-w-7xl px-4 sm:px-12 py-2.5 flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-center">
+        <span class="font-bold">{t.eyebrow}</span>
+        <span class="hidden sm:inline opacity-70">·</span>
+        <span class="opacity-95">
+          {t.body}{' '}
+          <strong>
+            <span class="cur cur-cop">$500K COP</span>
+            <span class="cur cur-usd">$145 USD</span>
+            <span class="cur cur-eur">€135 EUR</span>
+          </strong>
+        </span>
+        <span class="inline-flex items-center gap-1 font-bold underline decoration-white/40 underline-offset-2">
+          {t.cta}
+          <span aria-hidden="true">→</span>
+        </span>
+      </div>
+    </a>
+    <button
+      id="promo-dismiss"
+      type="button"
+      aria-label={t.close}
+      class="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center h-7 w-7 rounded-full hover:bg-white/15 transition-colors"
+    >
+      <svg viewBox="0 0 14 14" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M2 2 L12 12 M12 2 L2 12"></path>
+      </svg>
+    </button>
+
+    <script is:inline>
+      (function () {
+        const banner = document.getElementById('promo-banner');
+        if (!banner) return;
+        if (localStorage.getItem('promo-dismissed') === '1') {
+          banner.remove();
+          return;
+        }
+        document.getElementById('promo-dismiss')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          banner.remove();
+          localStorage.setItem('promo-dismissed', '1');
+        });
+      })();
+    </script>
+  </div>
+)}

@@ -1,0 +1,484 @@
+---
+import Icon from './Icon.astro';
+import Price from './Price.astro';
+import CurrencyCode from './CurrencyCode.astro';
+import TemplateGraphic from './TemplateGraphic.astro';
+import { getLangFromUrl, localizedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const contactBase = localizedPath(lang, '/contacto');
+
+// ─── Contenido por idioma ───────────────────────────────────────────────────
+const t = lang === 'es' ? {
+  eyebrow: 'Oferta de lanzamiento',
+  heroLine1: 'Tu sitio web pro,',
+  heroAccent: 'listo en una semana.',
+  heroSubtitle: 'Sitio + dominio + hosting por un año. Eliges entre 3 plantillas pensadas para PYMES. Te lo dejamos publicado y andando.',
+  validUntil: 'Vigencia: hasta el',
+  validDate: '15 de agosto de 2026',
+  spotsLeft: '10 cupos disponibles',
+  pricingTitle: 'Elige tu plan',
+  pricingSubtitle: 'Dos opciones. Sin letra pequeña.',
+  esencialName: 'Esencial',
+  esencialDesc: 'Presencia profesional online.',
+  esencialPeriod: ' / año',
+  esencialCta: 'Quiero el Esencial',
+  esencialFeatures: [
+    'Diseño profesional adaptado a tu marca',
+    'Una de las 3 plantillas a elegir',
+    '5 a 6 secciones (hero, servicios, sobre, contacto, etc.)',
+    'Dominio .co o .com incluido por 1 año',
+    'Hosting incluido por 1 año',
+    'SSL/HTTPS instalado',
+    'Optimización para móvil, tablet y desktop',
+    'SEO básico (meta tags, sitemap, robots.txt)',
+    'Integración con Google Maps si aplica',
+    'Botón de WhatsApp en el sitio',
+  ],
+  plusName: 'Plus',
+  plusDesc: 'Captura leads desde el primer día.',
+  plusPeriod: ' / año',
+  plusCta: 'Quiero el Plus',
+  recommended: 'Recomendado',
+  normalLabel: 'Precio normal',
+  plusMoreLabel: 'Ver todo lo que incluye',
+  plusLessLabel: 'Ver menos',
+  plusFeatures: [
+    'Todo lo del plan Esencial',
+    'Formulario de contacto integrado en el sitio',
+    'Campos personalizables: nombre, correo, teléfono y mensaje',
+    'Validación de los datos antes de enviar',
+    'Envío instantáneo sin recargar la página',
+    'Panel privado para ver los mensajes recibidos',
+    'Bandeja de entrada con todos tus contactos en un solo lugar',
+    'Vista detallada de cada mensaje recibido',
+    'Indicador de mensajes leídos y no leídos',
+    'Botón "Responder por correo" directo desde el panel',
+    'Notificaciones por correo en tiempo real',
+    'Aviso instantáneo cada vez que llega un nuevo lead',
+    'Protección anti-spam con honeypot',
+    'Límite de envíos por IP (rate limit)',
+    'Acceso al panel protegido con contraseña',
+    'Sesión segura con cierre de sesión',
+    'Funciona en cualquier hosting con PHP, sin servicios externos',
+    'Sin cuotas mensuales por el panel',
+  ],
+  templatesTitle: 'Las plantillas',
+  templatesSubtitle: 'Eliges una. Nosotros la personalizamos con tu información, fotos y marca.',
+  templatesViewDemo: 'Ver demo',
+  proofEyebrow: 'Ya entregamos',
+  proofTitle: 'No es solo promesa: ya pusimos sitios en producción',
+  proofText: 'Forzec es una de las landings que diseñamos y publicamos. Échale un ojo al tipo de acabado que entregamos.',
+  proofCta: 'Ver forzec.com',
+  templates: [
+    { slug: 'servicios', name: 'Servicios profesionales', description: 'Para consultoras, despachos, agencias y firmas que venden servicios B2B.', audience: 'Abogados, contadores, ingenieros, consultores', palette: 'from-blue-600 to-indigo-700' },
+    { slug: 'local',     name: 'Negocio local',           description: 'Para comercios con sede física que necesitan mostrar menú, horarios y ubicación.', audience: 'Restaurantes, salones, talleres, tiendas',        palette: 'from-amber-600 to-orange-700' },
+    { slug: 'producto',  name: 'Producto / Startup',      description: 'Single-page para productos digitales o apps con pricing y CTA de conversión.',     audience: 'SaaS, apps, productos digitales',                palette: 'from-violet-600 to-fuchsia-700' },
+  ],
+  addonsTitle: 'Add-ons opcionales',
+  addonsSubtitle: 'Cosas extra que puedes agregar al pedido.',
+  addons: [
+    { name: 'Versión en inglés',    desc: 'Sitio completo en inglés con selector de idioma', prices: { cop: '+$150.000', usd: '+$45', eur: '+€40' } },
+    { name: 'Galería extendida',    desc: 'Sección con +20 fotos optimizadas y lightbox',    prices: { cop: '+$80.000',  usd: '+$25', eur: '+€25' } },
+    { name: 'Sección de blog',      desc: 'Hasta 10 entradas iniciales con edición vía Markdown', prices: { cop: '+$200.000', usd: '+$60', eur: '+€55' } },
+    { name: 'Mantenimiento año 2',  desc: 'Actualizaciones, soporte y backups mensuales',    prices: { cop: '$150.000 / año', usd: '$45 / año', eur: '€40 / año' } },
+  ],
+  processTitle: 'Cómo funciona',
+  processSubtitle: 'De la firma al sitio publicado, en cuatro pasos.',
+  process: [
+    { title: 'Eliges plantilla',   desc: 'Mirás las 3 demos y decides cuál se ajusta mejor a tu negocio.' },
+    { title: 'Llenamos un brief',  desc: 'Formulario corto con tus textos, fotos, datos de contacto y horarios.' },
+    { title: 'Personalizamos',     desc: 'En 3–5 días tienes una versión preliminar para revisar.' },
+    { title: 'Publicamos',         desc: 'Configuramos el dominio, el hosting y dejamos todo funcionando.' },
+  ],
+  faqTitle: 'Preguntas frecuentes',
+  faqs: [
+    { q: '¿Y al año 2 qué pasa con el hosting y el dominio?', a: 'El hosting y el dominio los gestionas directamente con tu proveedor (renovás cuando quieras). Opcionalmente podemos mantener el sitio por una tarifa anual que incluye actualizaciones, backups y soporte. Si no contratas mantenimiento, el sitio sigue funcionando solo.' },
+    { q: '¿Soy yo quien queda como dueño del dominio?', a: 'Sí. El dominio y la cuenta de hosting quedan a tu nombre. Nosotros solo configuramos durante el primer año. Tienes control total desde el primer día.' },
+    { q: '¿Cuánto tarda en estar listo?', a: 'Entre 5 y 7 días desde que recibimos tu información. Si necesitas más rápido lo conversamos.' },
+    { q: '¿Y si quiero cambios después?', a: 'Incluimos hasta 2 rondas de cambios en el primer mes sin costo. Cambios posteriores se cotizan aparte.' },
+    { q: '¿El panel de mensajes funciona en cualquier hosting?', a: 'Funciona en cualquier hosting con PHP 7.4+ y soporte de SQLite (estándar en la mayoría de hostings compartidos). No requiere servicios externos ni cuotas mensuales.' },
+    { q: '¿Puedo subir desde Esencial a Plus después?', a: 'Sí, en cualquier momento. Se paga la diferencia y agregamos el formulario y el panel en 1–2 días.' },
+    { q: '¿Aceptan pago internacional?', a: 'Sí. Aceptamos transferencia, PayPal y Wise. Los precios se muestran en tu moneda local con un margen pequeño para cubrir conversión.' },
+  ],
+  ctaTitle: '¿Aprovechás los cupos?',
+  ctaSubtitle: 'Cuéntanos sobre tu negocio y armamos el plan que más te calza.',
+  ctaPrimary: 'Hablemos',
+  ctaSecondary: 'Volver a los planes',
+} : {
+  eyebrow: 'Launch offer',
+  heroLine1: 'Your pro website,',
+  heroAccent: 'live in one week.',
+  heroSubtitle: 'Website + domain + hosting for one year. Choose from 3 templates built for small businesses. We deliver it ready to go.',
+  validUntil: 'Valid through',
+  validDate: 'August 15, 2026',
+  spotsLeft: '10 spots available',
+  pricingTitle: 'Choose your plan',
+  pricingSubtitle: 'Two options. No fine print.',
+  esencialName: 'Essential',
+  esencialDesc: 'A professional online presence.',
+  esencialPeriod: ' / year',
+  esencialCta: 'Get Essential',
+  esencialFeatures: [
+    'Professional design adapted to your brand',
+    'One of 3 templates to choose from',
+    '5 to 6 sections (hero, services, about, contact, etc.)',
+    '.com or .co domain included for 1 year',
+    'Hosting included for 1 year',
+    'SSL/HTTPS installed',
+    'Mobile, tablet and desktop optimized',
+    'Basic SEO (meta tags, sitemap, robots.txt)',
+    'Google Maps integration if applicable',
+    'WhatsApp button on the site',
+  ],
+  plusName: 'Plus',
+  plusDesc: 'Capture leads from day one.',
+  plusPeriod: ' / year',
+  plusCta: 'Get Plus',
+  recommended: 'Recommended',
+  normalLabel: 'Regular price',
+  plusMoreLabel: 'See everything included',
+  plusLessLabel: 'Show less',
+  plusFeatures: [
+    'Everything in Essential',
+    'Contact form built into the site',
+    'Customizable fields: name, email, phone and message',
+    'Data validation before sending',
+    'Instant submit without reloading the page',
+    'Private inbox to read received messages',
+    'All your contacts in a single place',
+    'Detailed view for each received message',
+    'Read and unread message indicator',
+    '"Reply by email" button straight from the inbox',
+    'Real-time email notifications',
+    'Instant alert every time a new lead arrives',
+    'Anti-spam protection with honeypot',
+    'Per-IP submission limit (rate limit)',
+    'Password-protected panel access',
+    'Secure session with sign-out',
+    'Works on any PHP hosting, no external services',
+    'No monthly fees for the panel',
+  ],
+  templatesTitle: 'The templates',
+  templatesSubtitle: 'Pick one. We customize it with your information, photos and brand.',
+  templatesViewDemo: 'View demo',
+  proofEyebrow: 'Already shipped',
+  proofTitle: "It's not just a promise — we've shipped sites to production",
+  proofText: 'Forzec is one of the landing pages we designed and launched. Take a look at the kind of finish we deliver.',
+  proofCta: 'View forzec.com',
+  templates: [
+    { slug: 'servicios', name: 'Professional services', description: 'For consultancies, firms, agencies and businesses selling B2B services.',         audience: 'Lawyers, accountants, engineers, consultants', palette: 'from-blue-600 to-indigo-700' },
+    { slug: 'local',     name: 'Local business',        description: 'For brick-and-mortar businesses that need to show menu, hours and location.',     audience: 'Restaurants, salons, shops, workshops',        palette: 'from-amber-600 to-orange-700' },
+    { slug: 'producto',  name: 'Product / Startup',     description: 'Single-page site for digital products or apps with pricing and conversion CTAs.', audience: 'SaaS, apps, digital products',                 palette: 'from-violet-600 to-fuchsia-700' },
+  ],
+  addonsTitle: 'Optional add-ons',
+  addonsSubtitle: 'Extras you can add to your order.',
+  addons: [
+    { name: 'Spanish version',     desc: 'Full Spanish version with language switcher',          prices: { cop: '+$150.000', usd: '+$45', eur: '+€40' } },
+    { name: 'Extended gallery',    desc: '+20 optimized photos section with lightbox',           prices: { cop: '+$80.000',  usd: '+$25', eur: '+€25' } },
+    { name: 'Blog section',        desc: 'Up to 10 starter posts editable via Markdown',         prices: { cop: '+$200.000', usd: '+$60', eur: '+€55' } },
+    { name: 'Year 2 maintenance',  desc: 'Updates, support and monthly backups',                 prices: { cop: '$150.000 / year', usd: '$45 / year', eur: '€40 / year' } },
+  ],
+  processTitle: 'How it works',
+  processSubtitle: 'From sign-off to live site, in four steps.',
+  process: [
+    { title: 'Pick a template',  desc: 'Browse the 3 demos and choose the one that fits your business.' },
+    { title: 'Fill the brief',   desc: 'Short form with your copy, photos, contact info and hours.' },
+    { title: 'We customize',     desc: 'In 3–5 days you have a preview to review.' },
+    { title: 'We publish',       desc: 'We set up the domain, the hosting, and leave everything running.' },
+  ],
+  faqTitle: 'Frequently asked questions',
+  faqs: [
+    { q: 'What happens with hosting and domain in year 2?', a: 'You manage hosting and domain directly with your provider (renew whenever you want). Optionally we can maintain the site for an annual fee that includes updates, backups and support. Without maintenance the site keeps working on its own.' },
+    { q: 'Do I own the domain?', a: 'Yes. The domain and hosting account stay in your name. We just configure them during the first year. You have full control from day one.' },
+    { q: 'How long does it take?', a: 'Between 5 and 7 days from when we receive your info. If you need it faster, let us know.' },
+    { q: 'What if I want changes later?', a: 'We include up to 2 rounds of changes in the first month at no charge. Later changes are quoted separately.' },
+    { q: 'Does the message panel work on any hosting?', a: 'It works on any host with PHP 7.4+ and SQLite support (standard in most shared hosting). No external services or monthly fees required.' },
+    { q: 'Can I upgrade from Essential to Plus later?', a: 'Yes, anytime. You pay the difference and we add the form and the panel in 1–2 days.' },
+    { q: 'Do you accept international payments?', a: 'Yes. We accept bank transfer, PayPal and Wise. Prices are shown in your local currency with a small margin to cover conversion fees.' },
+  ],
+  ctaTitle: 'Ready to claim a spot?',
+  ctaSubtitle: 'Tell us about your business and we will put together the plan that fits best.',
+  ctaPrimary: "Let's talk",
+  ctaSecondary: 'Back to plans',
+};
+
+// Precio promocional (lo que realmente paga el cliente)
+const esencialPrices = { cop: '$500.000', usd: '$145', eur: '€135' };
+const plusPrices = { cop: '$700.000', usd: '$205', eur: '€185' };
+// Precio "normal" tachado: ancla de descuento (exactamente el doble → −50%)
+const esencialNormal = { cop: '$1.000.000', usd: '$290', eur: '€270' };
+const plusNormal = { cop: '$1.400.000', usd: '$410', eur: '€370' };
+const discountLabel = '−50%';
+
+// La lista del Plus es larga a propósito: mostramos las primeras y el resto tras "ver más"
+const plusVisible = t.plusFeatures.slice(0, 8);
+const plusMore = t.plusFeatures.slice(8);
+const forzecHref = 'https://forzec.com';
+---
+
+{/* Hero */}
+<section class="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-indigo-50/40 via-white to-white dark:from-indigo-950/20 dark:via-slate-950 dark:to-slate-950"></div>
+  <div class="absolute top-20 right-[-200px] -z-10 w-[600px] h-[600px] rounded-full bg-violet-200/30 dark:bg-violet-900/20 blur-3xl"></div>
+  <div class="absolute top-40 left-[-150px] -z-10 w-[500px] h-[500px] rounded-full bg-indigo-200/30 dark:bg-indigo-900/20 blur-3xl"></div>
+
+  <div class="max-w-4xl mx-auto px-6 text-center fade-in-up">
+    <span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 mb-6">
+      <span class="relative flex h-1.5 w-1.5">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75"></span>
+        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-600"></span>
+      </span>
+      {t.eyebrow}
+    </span>
+
+    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-6 leading-[1.05]">
+      {t.heroLine1}
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600">{t.heroAccent}</span>
+    </h1>
+
+    <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
+      {t.heroSubtitle}
+    </p>
+
+    <div class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+      <Icon name="clock" class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+      {t.validUntil} <strong>{t.validDate}</strong>
+      <span class="text-slate-300 dark:text-slate-700">·</span>
+      <span>{t.spotsLeft}</span>
+    </div>
+  </div>
+</section>
+
+{/* Pricing detallado */}
+<section id="planes" class="py-20 sm:py-24">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 fade-in-up">
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-3">
+        {t.pricingTitle}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300">{t.pricingSubtitle}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5 lg:gap-7 items-start">
+      <article class="fade-in-up rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 sm:p-10">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white">{t.esencialName}</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{t.esencialDesc}</p>
+        <div class="mt-6 mb-7">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <Price class="text-5xl font-black tracking-tighter text-emerald-600 dark:text-emerald-400" {...esencialPrices} />
+            <span class="text-base text-slate-500 dark:text-slate-400"><CurrencyCode />{t.esencialPeriod}</span>
+          </div>
+          <div class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span class="text-sm text-slate-400 dark:text-slate-500">{t.normalLabel}</span>
+            <Price class="text-base font-semibold text-slate-400 dark:text-slate-500 line-through decoration-2 decoration-rose-400/80" {...esencialNormal} />
+            <span class="inline-flex items-center rounded-full bg-rose-500/10 px-2 py-0.5 text-xs font-black text-rose-600 dark:text-rose-400">{discountLabel}</span>
+          </div>
+        </div>
+        <ul class="space-y-3 mb-8">
+          {t.esencialFeatures.map((f) => (
+            <li class="flex items-start gap-3 text-sm">
+              <Icon name="check" class="w-4 h-4 mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <span class="text-slate-700 dark:text-slate-300">{f}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={`${contactBase}?plan=esencial`} class="block w-full text-center rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-6 py-3.5 text-sm font-bold hover:bg-slate-800 dark:hover:bg-white transition-colors">
+          {t.esencialCta}
+        </a>
+      </article>
+
+      <article class="fade-in-up relative rounded-3xl border-2 border-indigo-600 bg-gradient-to-br from-indigo-50/60 to-white dark:from-indigo-950/30 dark:to-slate-900 p-8 sm:p-10 shadow-2xl shadow-indigo-500/10 ring-1 ring-indigo-600/10" style="transition-delay: 80ms;">
+        <span class="absolute -top-3 left-8 inline-flex items-center gap-1 rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 px-3 py-1 text-xs font-bold text-white shadow-md">
+          <Icon name="sparkles" class="w-3 h-3" />
+          {t.recommended}
+        </span>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white">{t.plusName}</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{t.plusDesc}</p>
+        <div class="mt-6 mb-7">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <Price class="text-5xl font-black tracking-tighter text-emerald-600 dark:text-emerald-400" {...plusPrices} />
+            <span class="text-base text-slate-500 dark:text-slate-400"><CurrencyCode />{t.plusPeriod}</span>
+          </div>
+          <div class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span class="text-sm text-slate-400 dark:text-slate-500">{t.normalLabel}</span>
+            <Price class="text-base font-semibold text-slate-400 dark:text-slate-500 line-through decoration-2 decoration-rose-400/80" {...plusNormal} />
+            <span class="inline-flex items-center rounded-full bg-rose-500/10 px-2 py-0.5 text-xs font-black text-rose-600 dark:text-rose-400">{discountLabel}</span>
+          </div>
+        </div>
+        <ul class="space-y-3 mb-4">
+          {plusVisible.map((f) => (
+            <li class="flex items-start gap-3 text-sm">
+              <Icon name="check" class="w-4 h-4 mt-0.5 shrink-0 text-indigo-600 dark:text-indigo-400" />
+              <span class="text-slate-700 dark:text-slate-300">{f}</span>
+            </li>
+          ))}
+        </ul>
+        {plusMore.length > 0 && (
+          <details class="group mb-8">
+            <summary class="flex items-center justify-center gap-1.5 cursor-pointer list-none select-none py-1.5 text-sm font-bold text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+              <span class="group-open:hidden">{t.plusMoreLabel} (+{plusMore.length})</span>
+              <span class="hidden group-open:inline">{t.plusLessLabel}</span>
+              <Icon name="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180" />
+            </summary>
+            <ul class="space-y-3 mt-4">
+              {plusMore.map((f) => (
+                <li class="flex items-start gap-3 text-sm">
+                  <Icon name="check" class="w-4 h-4 mt-0.5 shrink-0 text-indigo-600 dark:text-indigo-400" />
+                  <span class="text-slate-700 dark:text-slate-300">{f}</span>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+        <a href={`${contactBase}?plan=plus`} class="block w-full text-center rounded-lg bg-gradient-to-br from-indigo-600 to-violet-600 text-white px-6 py-3.5 text-sm font-bold shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all">
+          {t.plusCta}
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+{/* Plantillas */}
+<section id="plantillas" class="py-20 sm:py-24 bg-slate-50/60 dark:bg-slate-900/40">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 fade-in-up">
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-3">
+        {t.templatesTitle}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300">{t.templatesSubtitle}</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      {t.templates.map((tpl, i) => (
+        <article class="fade-in-up group flex flex-col rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all" style={`transition-delay: ${i * 70}ms;`}>
+          <TemplateGraphic slug={tpl.slug} palette={tpl.palette} />
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">{tpl.name}</h3>
+            <p class="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">{tpl.audience}</p>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5 flex-1">{tpl.description}</p>
+            <a href={`/oferta-de-lanzamiento/demo/${tpl.slug}`} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-100 hover:border-indigo-300 dark:hover:border-indigo-700 hover:text-indigo-700 dark:hover:text-indigo-400 transition-colors">
+              {t.templatesViewDemo}
+              <Icon name="arrow-up-right" class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Prueba social — Forzec */}
+<section class="py-12 sm:py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="fade-in-up relative overflow-hidden rounded-3xl border border-indigo-200/60 dark:border-indigo-800/40 bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/30 dark:to-slate-900 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+      <div class="flex-1 min-w-0">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 mb-3">
+          <Icon name="rocket" class="w-3 h-3" />
+          {t.proofEyebrow}
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-2">{t.proofTitle}</h2>
+        <p class="text-base text-slate-600 dark:text-slate-300 max-w-2xl">{t.proofText}</p>
+      </div>
+      <a href={forzecHref} target="_blank" rel="noopener" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/40 hover:-translate-y-0.5 transition-all">
+        {t.proofCta}
+        <Icon name="arrow-up-right" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</section>
+
+{/* Add-ons */}
+<section class="py-20 sm:py-24">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-2xl mb-12 fade-in-up">
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-3">
+        {t.addonsTitle}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300">{t.addonsSubtitle}</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-3">
+      {t.addons.map((a, i) => (
+        <div class="fade-in-up flex items-start justify-between gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5" style={`transition-delay: ${i * 50}ms;`}>
+          <div class="min-w-0">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">{a.name}</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{a.desc}</p>
+          </div>
+          <Price class="shrink-0 text-base font-black tracking-tight text-indigo-700 dark:text-indigo-400" {...a.prices} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Cómo funciona */}
+<section class="py-20 sm:py-24 bg-gradient-to-b from-slate-50/50 to-white dark:from-slate-900/40 dark:to-slate-950">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 fade-in-up">
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-3">
+        {t.processTitle}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300">{t.processSubtitle}</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {t.process.map((step, i) => (
+        <article class="fade-in-up relative p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900" style={`transition-delay: ${i * 80}ms;`}>
+          <div class="absolute -top-4 left-6 inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-black shadow-lg">
+            {i + 1}
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900 dark:text-white mb-2">{step.title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{step.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* FAQ */}
+<section class="py-20 sm:py-24">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12 fade-in-up">
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-3">
+        {t.faqTitle}
+      </h2>
+    </div>
+
+    <div class="space-y-3">
+      {t.faqs.map((item, i) => (
+        <details class="fade-in-up group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-5 open:shadow-md transition-shadow" style={`transition-delay: ${i * 40}ms;`}>
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">{item.q}</h3>
+            <span class="shrink-0 inline-flex items-center justify-center h-7 w-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-open:bg-indigo-600 group-open:text-white group-open:rotate-45 transition-all">
+              <Icon name="plus" class="w-4 h-4" />
+            </span>
+          </summary>
+          <p class="mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* CTA final */}
+<section class="py-20 sm:py-24 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600"></div>
+  <div class="absolute top-[-100px] right-[-100px] -z-10 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl"></div>
+
+  <div class="max-w-3xl mx-auto px-6 text-center fade-in-up">
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tighter text-white mb-4">
+      {t.ctaTitle}
+    </h2>
+    <p class="text-lg sm:text-xl text-indigo-100 mb-10">{t.ctaSubtitle}</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href={`${contactBase}?plan=plus`} class="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-7 py-4 text-base font-bold text-indigo-700 shadow-xl hover:bg-indigo-50 hover:-translate-y-0.5 transition-all">
+        {t.ctaPrimary}
+        <Icon name="arrow-right" class="w-4 h-4" />
+      </a>
+      <a href="#planes" class="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/40 bg-white/10 backdrop-blur px-7 py-4 text-base font-semibold text-white hover:bg-white/20 transition-all">
+        {t.ctaSecondary}
+      </a>
+    </div>
+  </div>
+</section>

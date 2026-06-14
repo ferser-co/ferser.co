@@ -1,0 +1,23 @@
+---
+/**
+ * Renderiza un precio en COP, USD y EUR. CSS controla cuál se muestra
+ * según el atributo data-currency en <html> (lo fija el script en Layout).
+ *
+ * <Price cop="$500.000" usd="$135" eur="€125" />
+ */
+interface Props {
+  cop: string;
+  usd: string;
+  eur: string;
+  /** Para precios prominentes (más grandes), Tailwind hereda del padre */
+  class?: string;
+}
+
+const { cop, usd, eur, class: className = '' } = Astro.props;
+---
+
+<span class={`js-price ${className}`}>
+  <span class="cur cur-cop">{cop}</span>
+  <span class="cur cur-usd">{usd}</span>
+  <span class="cur cur-eur">{eur}</span>
+</span>

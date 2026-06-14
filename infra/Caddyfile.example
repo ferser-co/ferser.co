@@ -1,0 +1,41 @@
+# Configuración de referencia de Caddy para servir el sitio estático de Ferser.
+# El deploy (scripts/deploy.sh) sincroniza dist/ a /opt/ferser/current y Caddy
+# sirve esa carpeta directamente.
+#
+# >>> EL ARREGLO DEL 404 ES EL BLOQUE handle_errors <<<
+# Sin él, cualquier ruta inexistente (ej: /algo-que-no-existe) devuelve el 404
+# por defecto de Caddy (texto plano feo) en vez de tu página /404.html.
+#
+# Aplicar en el VPS: edita tu Caddyfile (normalmente /etc/caddy/Caddyfile),
+# pega este bloque server y recarga sin downtime:
+#     caddy reload --config /etc/caddy/Caddyfile
+#   (o: systemctl reload caddy)
+
+ferser.co {
+    root * /opt/ferser/current
+    encode zstd gzip
+
+    # build.format = 'directory' => /ruta se sirve como /ruta/index.html.
+    # También resuelve .html directos. Si nada coincide, cae a un 404 que
+    # captura handle_errors más abajo.
+    try_files {path} {path}/index.html {path}.html
+
+    file_server
+
+    # ▼▼▼ Esto hace que las rutas desconocidas muestren tu /404.html ▼▼▼
+    handle_errors {
+        # Solo reescribimos los 404 a la página personalizada; otros errores
+        # (500, etc.) siguen su curso normal.
+        @404 expression {err.status_code} == 404
+        rewrite @404 /404.html
+        file_server
+    }
+    # ▲▲▲
+
+    # Cache larga para assets con hash; corta para HTML (para que los deploys
+    # se vean enseguida). Opcional pero recomendado.
+    @assets path /_astro/*
+    header @assets Cache-Control "public, max-age=31536000, immutable"
+    @html path *.html /
+    header @html Cache-Control "public, max-age=0, must-revalidate"
+}

@@ -1,0 +1,41 @@
+---
+import type { ProductoData } from './data';
+
+import Icon from '../../components/Icon.astro';
+interface Props {
+  data: ProductoData;
+}
+
+const { data } = Astro.props;
+---
+
+<header class="fixed inset-x-0 top-0 z-40 border-b border-slate-200/60 bg-white/85 backdrop-blur-xl supports-[backdrop-filter]:bg-white/70">
+  <nav aria-label="Principal" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-2.5">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-base font-black text-white shadow-md shadow-indigo-500/30">
+          {data.brand.initial}
+        </span>
+        <span class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900">{data.brand.name}</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-7">
+        {data.nav.map((item) => (
+          <a href={item.href} class="text-sm font-semibold text-slate-600 hover:text-indigo-700 transition-colors">
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      {data.navCta && (
+        <a
+          href={data.navCta.href}
+          class="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-indigo-600 to-violet-600 px-4 py-2 text-sm font-bold text-white shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/40 hover:-translate-y-0.5 transition-all"
+        >
+          {data.navCta.label}
+          <Icon name="arrow-right" class="w-3.5 h-3.5" />
+        </a>
+      )}
+    </div>
+  </nav>
+</header>

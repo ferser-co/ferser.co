@@ -1,0 +1,131 @@
+---
+import type { ServiciosData } from './data';
+
+import Icon from '../../components/Icon.astro';
+interface Props {
+  data: ServiciosData;
+}
+
+const { data } = Astro.props;
+const whatsappUrl = data.contact.whatsapp
+  ? `https://wa.me/${data.contact.whatsapp.replace(/[^0-9]/g, '')}`
+  : null;
+---
+
+<section id="contacto" class="py-20 sm:py-28 bg-white">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-14 reveal">
+      <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-blue-900">
+        <span class="h-px w-8 bg-blue-900"></span>
+        Contacto
+      </p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 mb-4">
+        {data.contact.title}
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600">{data.contact.subtitle}</p>
+    </div>
+
+    <div class="grid lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-12">
+      {/* Form */}
+      <form class="reveal rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm" action="panel/api/submit.php" method="POST">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="mb-1.5 block text-sm font-semibold text-slate-700">Nombre</span>
+            <input
+              name="name"
+              type="text"
+              required
+              class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-900/20 transition"
+              placeholder="Tu nombre"
+            />
+          </label>
+          <label class="block">
+            <span class="mb-1.5 block text-sm font-semibold text-slate-700">Empresa</span>
+            <input
+              name="company"
+              type="text"
+              class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-900/20 transition"
+              placeholder="Nombre de tu empresa"
+            />
+          </label>
+          <label class="block sm:col-span-2">
+            <span class="mb-1.5 block text-sm font-semibold text-slate-700">Correo</span>
+            <input
+              name="email"
+              type="email"
+              required
+              class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-900/20 transition"
+              placeholder="correo@empresa.com"
+            />
+          </label>
+          <label class="block sm:col-span-2">
+            <span class="mb-1.5 block text-sm font-semibold text-slate-700">¿En qué podemos ayudarte?</span>
+            <textarea
+              name="message"
+              required
+              rows="5"
+              class="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-900/20 transition resize-y"
+              placeholder="Cuéntanos brevemente sobre tu empresa y tu necesidad…"
+            ></textarea>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="mt-6 inline-flex items-center gap-2 rounded-lg bg-blue-900 px-7 py-3.5 text-base font-semibold text-white shadow-md hover:bg-blue-800 hover:shadow-lg transition-all"
+        >
+          Enviar mensaje
+          <Icon name="send" class="w-4 h-4" />
+        </button>
+      </form>
+
+      {/* Contact info */}
+      <aside class="reveal space-y-4" style="transition-delay: 100ms;">
+        <a href={`tel:${data.contact.phone}`} class="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 hover:border-blue-900/30 hover:shadow-md transition-all">
+          <div class="shrink-0 w-11 h-11 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center group-hover:bg-blue-900 group-hover:text-white transition-colors">
+            <Icon name="phone" class="w-5 h-5" />
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-0.5">Teléfono</p>
+            <p class="text-base font-semibold text-slate-900">{data.contact.phone}</p>
+          </div>
+        </a>
+
+        <a href={`mailto:${data.contact.email}`} class="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 hover:border-blue-900/30 hover:shadow-md transition-all">
+          <div class="shrink-0 w-11 h-11 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center group-hover:bg-blue-900 group-hover:text-white transition-colors">
+            <Icon name="mail" class="w-5 h-5" />
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-0.5">Correo</p>
+            <p class="text-base font-semibold text-slate-900 truncate">{data.contact.email}</p>
+          </div>
+        </a>
+
+        {whatsappUrl && (
+          <a href={whatsappUrl} class="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 hover:border-green-600/30 hover:shadow-md transition-all">
+            <div class="shrink-0 w-11 h-11 rounded-xl bg-green-50 text-green-600 flex items-center justify-center group-hover:bg-green-600 group-hover:text-white transition-colors">
+              <Icon name="message-circle" class="w-5 h-5" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-0.5">WhatsApp</p>
+              <p class="text-base font-semibold text-slate-900">{data.contact.whatsapp}</p>
+            </div>
+          </a>
+        )}
+
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5">
+          <div class="shrink-0 w-11 h-11 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center">
+            <Icon name="map-pin" class="w-5 h-5" />
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-0.5">Dirección</p>
+            <p class="text-sm font-semibold text-slate-900">{data.contact.address}</p>
+            <p class="text-xs text-slate-500 mt-1">{data.contact.hours}</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

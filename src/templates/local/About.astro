@@ -1,0 +1,51 @@
+---
+import type { LocalData } from './data';
+
+interface Props {
+  data: LocalData;
+}
+
+const { data } = Astro.props;
+---
+
+<section id="nosotros" class="py-20 sm:py-28 bg-amber-50/30">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-900">
+          <span class="h-px w-8 bg-amber-900"></span>
+          {data.about.eyebrow}
+        </p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-stone-900 mb-6">
+          {data.about.title}
+        </h2>
+        <div class="space-y-4 mb-10">
+          {data.about.paragraphs.map((p) => (
+            <p class="text-base sm:text-lg text-stone-700 leading-relaxed">{p}</p>
+          ))}
+        </div>
+
+        <div class="grid grid-cols-3 gap-5">
+          {data.about.highlights.map((h) => (
+            <div>
+              <p class="font-display text-3xl sm:text-4xl font-bold text-amber-900 mb-1">{h.value}</p>
+              <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider">{h.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="reveal order-1 lg:order-2" style="transition-delay: 100ms;">
+        <div class="relative">
+          <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+            <img src={data.about.image} alt={data.brand.name} class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="absolute -bottom-5 -left-5 bg-amber-500 text-stone-900 rounded-2xl px-5 py-4 shadow-xl">
+            <p class="font-display text-2xl font-bold leading-none">★ 4.8</p>
+            <p class="text-xs font-semibold mt-1">+1.200 reseñas en Google</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

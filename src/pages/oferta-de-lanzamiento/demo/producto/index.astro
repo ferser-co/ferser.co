@@ -1,0 +1,23 @@
+---
+import Layout from '../../../../templates/producto/Layout.astro';
+import Nav from '../../../../templates/producto/Nav.astro';
+import Hero from '../../../../templates/producto/Hero.astro';
+import Features from '../../../../templates/producto/Features.astro';
+import HowItWorks from '../../../../templates/producto/HowItWorks.astro';
+import Pricing from '../../../../templates/producto/Pricing.astro';
+import Faq from '../../../../templates/producto/Faq.astro';
+import CtaFinal from '../../../../templates/producto/CtaFinal.astro';
+import Footer from '../../../../templates/producto/Footer.astro';
+import { data } from '../../../../templates/producto/data';
+---
+
+<Layout title={`${data.brand.name} · Demo plantilla — Ferser`} description={data.hero.subtitle} isDemo noindex>
+  <Nav data={data} />
+  <Hero data={data} />
+  <Features data={data} />
+  <HowItWorks data={data} />
+  <Pricing data={data} />
+  <Faq data={data} />
+  <CtaFinal data={data} />
+  <Footer data={data} />
+</Layout>

@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBack from '../../components/NavBack.astro';
+import OfertaContent from '../../components/OfertaContent.astro';
+import FooterContact from '../../components/FooterContact.astro';
+---
+
+<Layout titleKey="meta.oferta.title" descriptionKey="meta.oferta.description" pathWithoutLang="/oferta-de-lanzamiento" ogImage="/og-offer.png">
+  <NavBack pathWithoutLang="/oferta-de-lanzamiento" />
+  <OfertaContent />
+  <FooterContact />
+</Layout>

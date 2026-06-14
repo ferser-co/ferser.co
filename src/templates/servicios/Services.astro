@@ -1,0 +1,39 @@
+---
+import type { ServiciosData } from './data';
+
+import Icon from '../../components/Icon.astro';
+interface Props {
+  data: ServiciosData;
+}
+
+const { data } = Astro.props;
+---
+
+<section id="servicios" class="py-20 sm:py-28 bg-white">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-14 reveal">
+      <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-blue-900">
+        <span class="h-px w-8 bg-blue-900"></span>
+        {data.services.title}
+      </p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 mb-4">
+        {data.services.subtitle}
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {data.services.items.map((item, i) => (
+        <article
+          class="reveal group p-7 bg-white border border-slate-200 rounded-2xl hover:border-blue-900/30 hover:shadow-xl hover:shadow-blue-900/5 hover:-translate-y-0.5 transition-all"
+          style={`transition-delay: ${i * 60}ms;`}
+        >
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center mb-5 group-hover:bg-blue-900 group-hover:text-white transition-colors">
+            <Icon name={item.icon} class="w-6 h-6" />
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

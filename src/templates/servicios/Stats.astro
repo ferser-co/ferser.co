@@ -1,0 +1,22 @@
+---
+import type { ServiciosData } from './data';
+
+interface Props {
+  data: ServiciosData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="py-16 sm:py-20 bg-blue-900">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      {data.stats.map((stat, i) => (
+        <div class="reveal text-center lg:text-left" style={`transition-delay: ${i * 70}ms;`}>
+          <p class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-2">{stat.value}</p>
+          <p class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-200">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

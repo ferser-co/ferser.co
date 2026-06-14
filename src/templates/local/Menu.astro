@@ -1,0 +1,54 @@
+---
+import type { LocalData } from './data';
+
+import Icon from '../../components/Icon.astro';
+interface Props {
+  data: LocalData;
+}
+
+const { data } = Astro.props;
+---
+
+<section id="menu" class="py-20 sm:py-28 bg-stone-900 text-stone-100">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-300">
+        <span class="h-px w-8 bg-amber-300"></span>
+        Menú
+      </p>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+        {data.menu.title}
+      </h2>
+      <p class="text-base sm:text-lg text-stone-300">{data.menu.subtitle}</p>
+    </div>
+
+    <div class="space-y-14">
+      {data.menu.sections.map((section, sectionIdx) => (
+        <div class="reveal" style={`transition-delay: ${sectionIdx * 80}ms;`}>
+          <h3 class="font-display text-2xl sm:text-3xl font-bold text-amber-300 mb-6 pb-3 border-b border-amber-500/20">
+            {section.category}
+          </h3>
+          <div class="space-y-5">
+            {section.items.map((item) => (
+              <div class="flex items-start gap-5">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h4 class="text-lg font-bold text-white">{item.name}</h4>
+                    {item.featured && (
+                      <span class="inline-flex items-center gap-1 rounded-full bg-amber-500/15 text-amber-300 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+                        <Icon name="star" class="w-2.5 h-2.5" />
+                        Favorito
+                      </span>
+                    )}
+                  </div>
+                  <p class="text-sm text-stone-400 leading-relaxed">{item.description}</p>
+                </div>
+                <p class="shrink-0 font-display text-xl font-bold text-amber-300">{item.price}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

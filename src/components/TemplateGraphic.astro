@@ -1,0 +1,102 @@
+---
+/**
+ * Cabecera ilustrada para las tarjetas de plantilla de la oferta.
+ * Cada plantilla muestra un gráfico de línea (blanco translúcido) alusivo
+ * a su tipo, sobre el degradado de su paleta — al estilo del mockup del home.
+ *
+ *   servicios → dashboard / analítica (B2B)
+ *   local     → fachada de tienda + pin de ubicación
+ *   producto  → mockup de app en móvil
+ */
+interface Props {
+  slug: string;
+  palette: string;
+}
+const { slug, palette } = Astro.props;
+
+const svgClass = 'w-[82%] h-[82%] text-white drop-shadow-[0_6px_16px_rgba(0,0,0,0.18)]';
+---
+
+<div class={`relative h-44 overflow-hidden bg-gradient-to-br ${palette}`}>
+  {/* Trama de puntos */}
+  <div
+    class="absolute inset-0 opacity-20"
+    style="background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1.4px); background-size: 18px 18px;"
+  >
+  </div>
+  {/* Halo + brillo */}
+  <div class="absolute -bottom-12 -left-10 w-44 h-44 rounded-full bg-white/10 blur-2xl"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.28),transparent_62%)]"></div>
+
+  {/* Ilustración alusiva */}
+  <div class="absolute inset-0 flex items-center justify-center">
+    {slug === 'servicios' && (
+      <svg viewBox="0 0 240 150" fill="none" class={svgClass}>
+        {/* tarjeta dashboard */}
+        <rect x="22" y="34" width="158" height="92" rx="12" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="2" />
+        <rect x="36" y="48" width="54" height="7" rx="3.5" fill="currentColor" fill-opacity="0.85" />
+        <rect x="36" y="61" width="34" height="5" rx="2.5" fill="currentColor" fill-opacity="0.45" />
+        {/* barras */}
+        <rect x="36" y="98" width="14" height="16" rx="3" fill="currentColor" fill-opacity="0.45" />
+        <rect x="58" y="88" width="14" height="26" rx="3" fill="currentColor" fill-opacity="0.6" />
+        <rect x="80" y="78" width="14" height="36" rx="3" fill="currentColor" fill-opacity="0.85" />
+        <rect x="102" y="92" width="14" height="22" rx="3" fill="currentColor" fill-opacity="0.55" />
+        {/* línea de tendencia */}
+        <polyline points="36,84 58,76 80,64 102,70 124,52" stroke="currentColor" stroke-opacity="0.9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="124" cy="52" r="4" fill="currentColor" />
+        {/* tarjeta flotante */}
+        <rect x="150" y="16" width="74" height="50" rx="10" fill="currentColor" fill-opacity="0.2" stroke="currentColor" stroke-opacity="0.55" stroke-width="2" />
+        <circle cx="167" cy="33" r="7" fill="currentColor" fill-opacity="0.85" />
+        <rect x="160" y="46" width="52" height="6" rx="3" fill="currentColor" fill-opacity="0.6" />
+        <rect x="160" y="55" width="34" height="5" rx="2.5" fill="currentColor" fill-opacity="0.4" />
+      </svg>
+    )}
+
+    {slug === 'local' && (
+      <svg viewBox="0 0 240 150" fill="none" class={svgClass}>
+        {/* suelo */}
+        <line x1="30" y1="128" x2="210" y2="128" stroke="currentColor" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round" />
+        {/* edificio */}
+        <rect x="62" y="58" width="116" height="70" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.55" stroke-width="2" />
+        {/* letrero */}
+        <rect x="86" y="42" width="68" height="14" rx="3" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" />
+        <rect x="96" y="47" width="48" height="4" rx="2" fill="currentColor" fill-opacity="0.7" />
+        {/* toldo a rayas */}
+        <path d="M58 58 L182 58 L172 76 L68 76 Z" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" stroke-linejoin="round" />
+        <line x1="84" y1="58" x2="80" y2="76" stroke="currentColor" stroke-opacity="0.45" stroke-width="2" />
+        <line x1="108" y1="58" x2="106" y2="76" stroke="currentColor" stroke-opacity="0.45" stroke-width="2" />
+        <line x1="132" y1="58" x2="134" y2="76" stroke="currentColor" stroke-opacity="0.45" stroke-width="2" />
+        <line x1="156" y1="58" x2="160" y2="76" stroke="currentColor" stroke-opacity="0.45" stroke-width="2" />
+        {/* puerta */}
+        <rect x="106" y="92" width="28" height="36" rx="2" fill="currentColor" fill-opacity="0.28" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" />
+        <circle cx="128" cy="110" r="2" fill="currentColor" fill-opacity="0.85" />
+        {/* ventanas */}
+        <rect x="74" y="88" width="22" height="20" rx="2" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" />
+        <rect x="144" y="88" width="22" height="20" rx="2" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" />
+        {/* pin de ubicación */}
+        <path d="M186 22 c-8,0 -13,6 -13,13 c0,9 13,19 13,19 c0,0 13,-10 13,-19 c0,-7 -5,-13 -13,-13 Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-opacity="0.9" stroke-width="2.5" stroke-linejoin="round" />
+        <circle cx="186" cy="35" r="4.5" fill="currentColor" fill-opacity="0.95" />
+      </svg>
+    )}
+
+    {slug === 'producto' && (
+      <svg viewBox="0 0 240 150" fill="none" class={svgClass}>
+        {/* tarjeta flotante detrás */}
+        <rect x="34" y="46" width="58" height="72" rx="10" fill="currentColor" fill-opacity="0.16" stroke="currentColor" stroke-opacity="0.4" stroke-width="2" transform="rotate(-8 63 82)" />
+        {/* teléfono */}
+        <rect x="92" y="22" width="76" height="116" rx="16" fill="currentColor" fill-opacity="0.16" stroke="currentColor" stroke-opacity="0.6" stroke-width="2.5" />
+        <rect x="120" y="31" width="20" height="4" rx="2" fill="currentColor" fill-opacity="0.6" />
+        {/* encabezado pantalla */}
+        <rect x="104" y="44" width="40" height="7" rx="3.5" fill="currentColor" fill-opacity="0.8" />
+        <rect x="104" y="55" width="26" height="5" rx="2.5" fill="currentColor" fill-opacity="0.45" />
+        {/* gráfico */}
+        <polyline points="104,96 118,86 132,90 146,74 156,78" stroke="currentColor" stroke-opacity="0.9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <line x1="104" y1="102" x2="156" y2="102" stroke="currentColor" stroke-opacity="0.3" stroke-width="1.5" />
+        {/* botón CTA */}
+        <rect x="104" y="112" width="52" height="16" rx="8" fill="currentColor" fill-opacity="0.85" />
+        {/* destello */}
+        <path d="M188 40 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 Z" fill="currentColor" fill-opacity="0.9" />
+      </svg>
+    )}
+  </div>
+</div>

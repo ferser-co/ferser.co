@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavHome from '../../components/NavHome.astro';
+import HomeContent from '../../components/HomeContent.astro';
+import HomePromoSection from '../../components/HomePromoSection.astro';
+import HomeFeaturedProject from '../../components/HomeFeaturedProject.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout titleKey="meta.home.title" descriptionKey="meta.home.description" pathWithoutLang="/">
+  <NavHome />
+  <HomeContent />
+  <HomePromoSection />
+  <HomeFeaturedProject />
+  <Footer />
+</Layout>

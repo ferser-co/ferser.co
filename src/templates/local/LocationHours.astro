@@ -1,0 +1,97 @@
+---
+import type { LocalData } from './data';
+
+import Icon from '../../components/Icon.astro';
+interface Props {
+  data: LocalData;
+}
+
+const { data } = Astro.props;
+const whatsappUrl = `https://wa.me/${data.contact.whatsapp.replace(/[^0-9]/g, '')}`;
+---
+
+<section id="ubicacion" class="py-20 sm:py-28 bg-white">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-14">
+      {/* Ubicación + mapa */}
+      <div class="reveal">
+        <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-900">
+          <span class="h-px w-8 bg-amber-900"></span>
+          {data.location.title}
+        </p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-stone-900 mb-3">
+          {data.location.subtitle}
+        </h2>
+
+        <div class="my-6 rounded-2xl overflow-hidden border-2 border-stone-200 aspect-[16/10]">
+          <iframe
+            src={data.location.mapEmbedUrl}
+            class="w-full h-full"
+            style="border:0;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación"
+          ></iframe>
+        </div>
+
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <Icon name="map-pin" class="w-5 h-5 text-amber-900 mt-0.5 shrink-0" />
+            <div>
+              <p class="font-semibold text-stone-900">{data.location.address}</p>
+              <p class="text-sm text-stone-500">{data.location.cityRegion}</p>
+            </div>
+          </div>
+          <p class="text-sm text-stone-600 leading-relaxed pl-8">{data.location.directions}</p>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href={whatsappUrl}
+            class="inline-flex items-center gap-2 rounded-full bg-amber-900 px-5 py-2.5 text-sm font-bold text-amber-50 hover:bg-amber-800 transition-colors"
+          >
+            <Icon name="message-circle" class="w-4 h-4" />
+            Escribir por WhatsApp
+          </a>
+          <a
+            href={`tel:${data.contact.phone}`}
+            class="inline-flex items-center gap-2 rounded-full border-2 border-stone-200 bg-white px-5 py-2.5 text-sm font-semibold text-stone-700 hover:border-stone-300 hover:bg-stone-50 transition-colors"
+          >
+            <Icon name="phone" class="w-4 h-4" />
+            {data.contact.phone}
+          </a>
+        </div>
+      </div>
+
+      {/* Horarios */}
+      <div class="reveal" style="transition-delay: 100ms;">
+        <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-amber-900">
+          <span class="h-px w-8 bg-amber-900"></span>
+          {data.hours.title}
+        </p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-stone-900 mb-6">
+          {data.hours.subtitle}
+        </h2>
+
+        <div class="rounded-2xl border-2 border-stone-200 bg-amber-50/30 overflow-hidden">
+          {data.hours.schedule.map((row, i) => (
+            <div
+              class={`flex justify-between items-center px-5 py-3.5 ${
+                i < data.hours.schedule.length - 1 ? 'border-b border-stone-200/60' : ''
+              } ${row.closed ? 'bg-stone-100/50' : ''}`}
+            >
+              <span class={`font-semibold ${row.closed ? 'text-stone-400' : 'text-stone-900'}`}>{row.day}</span>
+              <span class={`text-sm ${row.closed ? 'text-stone-400 italic' : 'text-stone-700 font-medium'}`}>
+                {row.hours}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {data.hours.note && (
+          <p class="mt-5 text-sm text-stone-500 italic leading-relaxed">{data.hours.note}</p>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

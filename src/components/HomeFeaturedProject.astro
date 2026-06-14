@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import HostalkChatPreview from './HostalkChatPreview.astro';
+
+import Icon from './Icon.astro';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const detailHref = localizedPath(lang, '/proyectos/hostalk');
+---
+
+<section class="py-20 sm:py-24 bg-white/40 dark:bg-slate-950/40">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12 fade-in-up">
+      <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+        {t('home.featured.eyebrow')}
+      </span>
+    </div>
+
+    <article class="fade-in-up grid lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-12 items-center rounded-3xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sm:p-10 shadow-xl">
+      <div>
+        <div class="flex items-center gap-3 mb-5">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+            {t('projects.status.development')}
+          </span>
+        </div>
+
+        <h3 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-2">
+          {t('projects.hostalk.title')}
+        </h3>
+        <p class="text-base sm:text-lg text-blue-700 dark:text-blue-400 font-semibold mb-5">
+          {t('projects.hostalk.tagline')}
+        </p>
+
+        <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-7">
+          {t('projects.hostalk.brief')}
+        </p>
+
+        <a
+          href={detailHref}
+          class="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 dark:bg-blue-500 dark:hover:bg-blue-400 transition-all"
+        >
+          {t('home.featured.cta')}
+          <Icon name="arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+
+      <div>
+        <HostalkChatPreview />
+      </div>
+    </article>
+  </div>
+</section>

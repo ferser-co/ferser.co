@@ -1,0 +1,18 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+import Icon from './Icon.astro';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label={t('theme.toggle')}
+  title={t('theme.toggle')}
+  class="inline-flex items-center justify-center rounded-full border border-slate-200/70 bg-white/60 p-2 text-slate-600 hover:bg-white hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white focus-visible:outline-2 focus-visible:outline-blue-600 transition-colors"
+>
+  <Icon name="sun" class="block dark:hidden w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+  <Icon name="moon" class="hidden dark:block w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+</button>

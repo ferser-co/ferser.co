@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBack from '../../components/NavBack.astro';
+import ContactContent from '../../components/ContactContent.astro';
+import FooterContact from '../../components/FooterContact.astro';
+---
+
+<Layout titleKey="meta.contact.title" descriptionKey="meta.contact.description" pathWithoutLang="/contacto">
+  <NavBack pathWithoutLang="/contacto" />
+  <ContactContent />
+  <FooterContact />
+</Layout>

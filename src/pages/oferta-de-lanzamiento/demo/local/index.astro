@@ -1,0 +1,21 @@
+---
+import Layout from '../../../../templates/local/Layout.astro';
+import Nav from '../../../../templates/local/Nav.astro';
+import Hero from '../../../../templates/local/Hero.astro';
+import About from '../../../../templates/local/About.astro';
+import Menu from '../../../../templates/local/Menu.astro';
+import Gallery from '../../../../templates/local/Gallery.astro';
+import LocationHours from '../../../../templates/local/LocationHours.astro';
+import Footer from '../../../../templates/local/Footer.astro';
+import { data } from '../../../../templates/local/data';
+---
+
+<Layout title={`${data.brand.name} · Demo plantilla — Ferser`} description={data.hero.subtitle} isDemo noindex heroPreload={data.hero.backgroundImage}>
+  <Nav data={data} />
+  <Hero data={data} />
+  <About data={data} />
+  <Menu data={data} />
+  <Gallery data={data} />
+  <LocationHours data={data} />
+  <Footer data={data} />
+</Layout>
