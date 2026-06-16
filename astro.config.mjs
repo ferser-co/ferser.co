@@ -24,7 +24,7 @@ export default defineConfig({
     sitemap({
       // Excluir demos del sitemap (son plantillas ficticias, ya tienen noindex
       // pero además queremos que ni siquiera se descubran vía sitemap)
-      filter: (page) => !page.includes('/oferta-de-lanzamiento/demo/'),
+      filter: (page) => !page.includes('/demo/'),
     }),
   ],
   vite: {

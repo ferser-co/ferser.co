@@ -18,6 +18,30 @@ const techStack = [
 
 const forzecHref = 'https://forzec.com';
 const forzecTech = ['Astro', 'Tailwind CSS', 'SSG', 'Landing'];
+
+const automations = [
+  {
+    name: 'Control de acceso inteligente',
+    desc: 'Valida credenciales (carné, QR o tag) por vigencia y permisos, con bitácora en vivo. Adaptable a gimnasios, oficinas, clubes y más.',
+    demoHref: '/automatizaciones/demo/control-acceso',
+    icon: 'shield-check',
+    tags: ['FastAPI', 'Dashboard', 'API'],
+  },
+  {
+    name: 'Alertas de facturación recurrente',
+    desc: 'Convierte eventos de pago (cargo rechazado, suscripción vencida) en mensajes preventivos por WhatsApp o correo. Reduce la fuga de ingresos por cobros fallidos.',
+    demoHref: '/automatizaciones/demo/alertas-facturacion',
+    icon: 'bell-ring',
+    tags: ['FastAPI', 'Dashboard', 'Webhooks'],
+  },
+  {
+    name: 'Reservas con lista de espera',
+    desc: 'Motor de reservas por capacidad: cuando un cupo se llena, los nuevos entran a una lista de espera y ascienden solos al liberarse un lugar. Para clases, mesas, salas y eventos.',
+    demoHref: '/automatizaciones/demo/gestion-reservas',
+    icon: 'calendar',
+    tags: ['FastAPI', 'Dashboard', 'API'],
+  },
+];
 ---
 
 <section class="relative pt-32 pb-16 overflow-hidden">
@@ -167,6 +191,38 @@ const forzecTech = ['Astro', 'Tailwind CSS', 'SSG', 'Landing'];
       </div>
     </article>
 
+    {/* Divisor — automatizaciones */}
+    <div class="flex items-center gap-3 mt-20 mb-8 fade-in-up">
+      <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+      <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        {lang === 'es' ? 'Automatizaciones' : 'Automations'}
+      </span>
+      <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+      {automations.map((a) => (
+        <article class="fade-in-up flex flex-col rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition-all">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white">
+              <Icon name={a.icon} class="w-5 h-5" />
+            </span>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{a.name}</h3>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 flex-1">{a.desc}</p>
+          <div class="flex flex-wrap gap-2 mb-5">
+            {a.tags.map((tag) => (
+              <span class="inline-flex items-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">{tag}</span>
+            ))}
+          </div>
+          <a href={a.demoHref} target="_blank" rel="noopener" data-auto-demo class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 transition">
+            {lang === 'es' ? 'Ver demo' : 'View demo'}
+            <Icon name="arrow-up-right" class="w-3.5 h-3.5" />
+          </a>
+        </article>
+      ))}
+    </div>
+
     <div class="mt-16 fade-in-up rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 p-8 sm:p-12 text-center">
       <div class="inline-flex w-12 h-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 mb-4">
         <Icon name="github" class="w-6 h-6" />
@@ -183,3 +239,15 @@ const forzecTech = ['Astro', 'Tailwind CSS', 'SSG', 'Landing'];
     </div>
   </div>
 </section>
+
+<script is:inline>
+  // Abre las demos de automatización con window.open para que su botón "Volver"
+  // pueda cerrar la pestaña y regresar a esta.
+  document.querySelectorAll('a[data-auto-demo]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      window.open(a.href, '_blank');
+    });
+  });
+</script>

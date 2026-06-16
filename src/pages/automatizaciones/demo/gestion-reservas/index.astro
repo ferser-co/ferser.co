@@ -1,0 +1,334 @@
+---
+import '../../../../styles/global.css';
+import Icon from '../../../../components/Icon.astro';
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservas y lista de espera · Demo — Ferser</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#020617" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-200 antialiased" style="font-family: 'Inter', system-ui, sans-serif;">
+    <header class="sticky top-0 z-20 border-b border-slate-800 bg-slate-900/80 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 text-white"><Icon name="calendar" class="w-4 h-4" /></span>
+          <span class="font-bold text-white truncate">Reservas y lista de espera</span>
+          <span class="hidden sm:inline rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">Demo</span>
+        </div>
+        <div class="inline-flex rounded-full bg-slate-800 p-0.5 text-xs font-semibold" data-sectors>
+          <button type="button" data-sector="gimnasio" class="px-3 py-1.5 rounded-full text-slate-300">Gimnasio</button>
+          <button type="button" data-sector="restaurante" class="px-3 py-1.5 rounded-full text-slate-300">Restaurante</button>
+          <button type="button" data-sector="oficina" class="px-3 py-1.5 rounded-full text-slate-300">Oficina</button>
+        </div>
+        <a href="/proyectos" data-back class="shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-semibold text-slate-300 hover:bg-slate-800 transition-colors">
+          ← Volver
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-5 py-6">
+      <div class="mb-6">
+        <h1 class="text-xl font-black text-white" data-title>Reservas · Gimnasio</h1>
+        <p class="text-sm text-slate-400">Cuando un cupo se llena, los nuevos entran a la lista de espera y ascienden solos al liberarse un lugar.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Cupos activos</p>
+          <p class="mt-1 text-2xl font-black text-white" data-kpi-slots>3</p>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Confirmados</p>
+          <p class="mt-1 text-2xl font-black text-emerald-400" data-kpi-confirmed>0</p>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">En lista de espera</p>
+          <p class="mt-1 text-2xl font-black text-amber-400" data-kpi-waitlist>0</p>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Ocupación</p>
+          <p class="mt-1 text-2xl font-black text-white" data-kpi-occ>0%</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-4">
+        {/* Lista de cupos */}
+        <section class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <h2 class="font-bold text-white mb-1">Cupos</h2>
+          <p class="text-xs text-slate-500 mb-4">Toca un cupo para ver el detalle</p>
+          <div class="flex flex-col gap-2" data-slots></div>
+        </section>
+
+        {/* Detalle del cupo */}
+        <section class="lg:col-span-2 rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <div>
+              <h2 class="font-bold text-white" data-detail-name>—</h2>
+              <p class="text-xs text-slate-500" data-detail-sub>—</p>
+            </div>
+            <button type="button" data-reserve class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 transition">
+              <Icon name="user-plus" class="w-4 h-4" /> Reservar
+            </button>
+          </div>
+
+          <div class="h-2.5 rounded-full bg-slate-800 overflow-hidden mb-5">
+            <div class="h-full rounded-full transition-all" data-detail-bar style="width: 0%;"></div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Confirmados</p>
+              <ul class="flex flex-col gap-1.5" data-confirmed></ul>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Lista de espera</p>
+              <ul class="flex flex-col gap-1.5" data-waitlist></ul>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* Actividad */}
+      <section class="mt-4 rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-slate-800 flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-cyan-500"></span>
+          </span>
+          <h2 class="font-bold text-white">Actividad en vivo</h2>
+        </div>
+        <ul class="divide-y divide-slate-800 max-h-64 overflow-y-auto" data-feed>
+          <li class="px-5 py-3 text-sm text-slate-500">Reserva o cancela para ver la actividad.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      const SECTORS = {
+        gimnasio: {
+          title: "Reservas · Gimnasio", unit: "clase",
+          names: ["Mariana", "Diego", "Paula", "Tomás", "Valeria", "Sebastián", "Camila", "Julián", "Daniela", "Felipe", "Andrea", "Mateo"],
+          slots: [
+            { id: "S-1", name: "Spinning · 6:00 AM", capacity: 8, confirmed: 5, waitlist: 0 },
+            { id: "S-2", name: "Crossfit · 7:00 AM", capacity: 8, confirmed: 8, waitlist: 2 },
+            { id: "S-3", name: "Yoga · 6:00 PM", capacity: 6, confirmed: 3, waitlist: 0 },
+          ],
+        },
+        restaurante: {
+          title: "Reservas · Restaurante", unit: "turno",
+          names: ["Mesa Gómez", "Mesa Ruiz", "Mesa Díaz", "Mesa Soto", "Mesa Vega", "Mesa Lara", "Mesa Cruz", "Mesa Mora", "Mesa Peña", "Mesa Ríos"],
+          slots: [
+            { id: "S-1", name: "Turno · 7:00 PM", capacity: 10, confirmed: 7, waitlist: 0 },
+            { id: "S-2", name: "Turno · 8:30 PM", capacity: 10, confirmed: 10, waitlist: 3 },
+            { id: "S-3", name: "Terraza · 9:00 PM", capacity: 6, confirmed: 4, waitlist: 0 },
+          ],
+        },
+        oficina: {
+          title: "Reservas · Oficina", unit: "sala",
+          names: ["Equipo Norte", "Equipo Sur", "Diseño", "Producto", "Ventas", "Soporte", "Dirección", "Finanzas", "Legal", "Datos"],
+          slots: [
+            { id: "S-1", name: "Sala Norte · 9:00", capacity: 6, confirmed: 4, waitlist: 0 },
+            { id: "S-2", name: "Sala Sur · 10:00", capacity: 6, confirmed: 6, waitlist: 2 },
+            { id: "S-3", name: "Auditorio · 14:00", capacity: 20, confirmed: 12, waitlist: 0 },
+          ],
+        },
+      };
+
+      const $ = (s) => document.querySelector(s);
+
+      let sector = "gimnasio";
+      let slots = [];
+      let selectedId = "S-2";
+      let guestNum = 1;
+
+      function buildSlots() {
+        const pool = SECTORS[sector].names;
+        let idx = 0;
+        return SECTORS[sector].slots.map((s) => {
+          const confirmed = [], waitlist = [];
+          for (let i = 0; i < s.confirmed; i++) { confirmed.push({ id: `seed-${s.id}-c-${i}`, name: pool[idx % pool.length] }); idx++; }
+          for (let i = 0; i < s.waitlist; i++) { waitlist.push({ id: `seed-${s.id}-w-${i}`, name: pool[idx % pool.length] }); idx++; }
+          return { id: s.id, name: s.name, capacity: s.capacity, confirmed, waitlist };
+        });
+      }
+
+      function selected() { return slots.find((s) => s.id === selectedId) || slots[0]; }
+
+      function feed(kind, name, slot, extra) {
+        const f = $("[data-feed]");
+        const placeholder = f.querySelector("li.text-slate-500");
+        if (placeholder && f.children.length === 1) placeholder.remove();
+        const map = {
+          confirmed: ["bg-emerald-500", `<span class="text-slate-300">${name}</span> confirmado en <span class="text-slate-300">${slot.name}</span>`],
+          waitlisted: ["bg-amber-500", `<span class="text-slate-300">${name}</span> a lista de espera en <span class="text-slate-300">${slot.name}</span> · pos. ${extra}`],
+          promoted: ["bg-cyan-500", `<span class="text-cyan-300">${name}</span> ascendió a confirmado en <span class="text-slate-300">${slot.name}</span>`],
+          cancelled: ["bg-rose-500", `<span class="text-slate-300">${name}</span> canceló en <span class="text-slate-300">${slot.name}</span>`],
+        };
+        const [dot, text] = map[kind];
+        const t = new Date().toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+        const li = document.createElement("li");
+        li.className = "px-5 py-2.5 text-sm flex items-center gap-3";
+        li.innerHTML = `<span class="h-1.5 w-1.5 rounded-full ${dot}"></span>${text}<span class="ml-auto text-xs text-slate-600 tabular-nums">${t}</span>`;
+        f.prepend(li);
+      }
+
+      function reserve() {
+        const slot = selected();
+        const entry = { id: `g-${guestNum}`, name: `Invitado ${guestNum}` };
+        guestNum++;
+        if (slot.confirmed.length < slot.capacity) {
+          slot.confirmed.push(entry);
+          feed("confirmed", entry.name, slot);
+        } else {
+          slot.waitlist.push(entry);
+          feed("waitlisted", entry.name, slot, slot.waitlist.length);
+        }
+        render();
+      }
+
+      function cancel(entryId) {
+        const slot = selected();
+        const ci = slot.confirmed.findIndex((e) => e.id === entryId);
+        if (ci >= 0) {
+          const removed = slot.confirmed.splice(ci, 1)[0];
+          feed("cancelled", removed.name, slot);
+          if (slot.waitlist.length) {
+            const promoted = slot.waitlist.shift();
+            slot.confirmed.push(promoted);
+            feed("promoted", promoted.name, slot);
+          }
+        } else {
+          const wi = slot.waitlist.findIndex((e) => e.id === entryId);
+          if (wi >= 0) { const removed = slot.waitlist.splice(wi, 1)[0]; feed("cancelled", removed.name, slot); }
+        }
+        render();
+      }
+
+      function barColor(ratio) {
+        if (ratio >= 1) return "background: linear-gradient(90deg,#f59e0b,#f43f5e);";
+        return "background: linear-gradient(90deg,#2563eb,#06b6d4);";
+      }
+
+      function renderSlots() {
+        const el = $("[data-slots]");
+        el.innerHTML = "";
+        for (const s of slots) {
+          const ratio = s.confirmed.length / s.capacity;
+          const card = document.createElement("button");
+          card.type = "button";
+          card.className = "text-left rounded-xl border p-3 transition " + (s.id === selectedId ? "border-blue-500 bg-blue-500/10" : "border-slate-800 hover:border-slate-700");
+          card.innerHTML =
+            `<div class="flex items-center justify-between gap-2 mb-2"><span class="text-sm font-semibold text-slate-100">${s.name}</span>` +
+            (s.waitlist.length ? `<span class="rounded-full bg-amber-500/15 text-amber-400 px-2 py-0.5 text-[11px] font-semibold">${s.waitlist.length} en espera</span>` : "") +
+            `</div>` +
+            `<div class="h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full rounded-full" style="width:${Math.min(100, ratio * 100)}%;${barColor(ratio)}"></div></div>` +
+            `<p class="mt-1.5 text-xs text-slate-500">${s.confirmed.length}/${s.capacity} confirmados</p>`;
+          card.addEventListener("click", () => { selectedId = s.id; render(); });
+          el.appendChild(card);
+        }
+      }
+
+      function renderDetail() {
+        const s = selected();
+        $("[data-detail-name]").textContent = s.name;
+        $("[data-detail-sub]").textContent = `${s.confirmed.length}/${s.capacity} confirmados · ${s.waitlist.length} en lista de espera`;
+        const ratio = s.confirmed.length / s.capacity;
+        const bar = $("[data-detail-bar]");
+        bar.style.cssText = `width:${Math.min(100, ratio * 100)}%;${barColor(ratio)}`;
+
+        const conf = $("[data-confirmed]");
+        conf.innerHTML = "";
+        if (!s.confirmed.length) conf.innerHTML = `<li class="text-sm text-slate-600">Sin confirmados.</li>`;
+        for (const e of s.confirmed) {
+          const li = document.createElement("li");
+          li.className = "flex items-center justify-between gap-2 rounded-lg border border-slate-800 px-3 py-2 text-sm";
+          li.innerHTML = `<span class="text-slate-200">${e.name}</span>`;
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "text-slate-500 hover:text-rose-400 transition";
+          btn.title = "Cancelar";
+          btn.textContent = "✕";
+          btn.addEventListener("click", () => cancel(e.id));
+          li.appendChild(btn);
+          conf.appendChild(li);
+        }
+
+        const wl = $("[data-waitlist]");
+        wl.innerHTML = "";
+        if (!s.waitlist.length) wl.innerHTML = `<li class="text-sm text-slate-600">Lista de espera vacía.</li>`;
+        s.waitlist.forEach((e, i) => {
+          const li = document.createElement("li");
+          li.className = "flex items-center justify-between gap-2 rounded-lg border border-slate-800 px-3 py-2 text-sm";
+          li.innerHTML = `<span class="flex items-center gap-2"><span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-800 text-[11px] font-bold text-amber-400">${i + 1}</span><span class="text-slate-300">${e.name}</span></span>`;
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "text-slate-500 hover:text-rose-400 transition";
+          btn.title = "Quitar";
+          btn.textContent = "✕";
+          btn.addEventListener("click", () => cancel(e.id));
+          li.appendChild(btn);
+          wl.appendChild(li);
+        });
+      }
+
+      function updateKpis() {
+        let conf = 0, wait = 0, capSum = 0;
+        for (const s of slots) { conf += s.confirmed.length; wait += s.waitlist.length; capSum += s.capacity; }
+        $("[data-kpi-slots]").textContent = slots.length;
+        $("[data-kpi-confirmed]").textContent = conf;
+        $("[data-kpi-waitlist]").textContent = wait;
+        $("[data-kpi-occ]").textContent = (capSum ? Math.round((conf / capSum) * 100) : 0) + "%";
+      }
+
+      function render() {
+        $("[data-title]").textContent = SECTORS[sector].title;
+        renderSlots();
+        renderDetail();
+        updateKpis();
+      }
+
+      document.querySelectorAll("[data-sector]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          sector = btn.dataset.sector;
+          slots = buildSlots();
+          selectedId = "S-2";
+          document.querySelectorAll("[data-sector]").forEach((b) => {
+            const on = b === btn;
+            b.classList.toggle("bg-white", on);
+            b.classList.toggle("text-slate-900", on);
+            b.classList.toggle("text-slate-300", !on);
+          });
+          render();
+        });
+      });
+      const firstSector = document.querySelector('[data-sector="gimnasio"]');
+      firstSector.classList.add("bg-white", "text-slate-900");
+      firstSector.classList.remove("text-slate-300");
+
+      $("[data-reserve]").addEventListener("click", reserve);
+
+      $("[data-back]").addEventListener("click", (e) => {
+        if (window.opener && !window.opener.closed) {
+          e.preventDefault();
+          try { window.opener.focus(); } catch (_) {}
+          window.close();
+        }
+      });
+
+      slots = buildSlots();
+      render();
+    </script>
+  </body>
+</html>

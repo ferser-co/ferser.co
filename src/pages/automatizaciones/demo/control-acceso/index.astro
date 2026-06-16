@@ -1,0 +1,346 @@
+---
+import '../../../../styles/global.css';
+import Icon from '../../../../components/Icon.astro';
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control de acceso · Demo — Ferser</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#020617" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-200 antialiased" style="font-family: 'Inter', system-ui, sans-serif;">
+    <header class="sticky top-0 z-20 border-b border-slate-800 bg-slate-900/80 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 text-white text-sm font-black">A</span>
+          <span class="font-bold text-white truncate">Control de acceso</span>
+          <span class="hidden sm:inline rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">Demo</span>
+        </div>
+        <div class="inline-flex rounded-full bg-slate-800 p-0.5 text-xs font-semibold" data-sectors>
+          <button type="button" data-sector="gimnasio" class="px-3 py-1.5 rounded-full text-slate-300">Gimnasio</button>
+          <button type="button" data-sector="restaurante" class="px-3 py-1.5 rounded-full text-slate-300">Restaurante</button>
+          <button type="button" data-sector="oficina" class="px-3 py-1.5 rounded-full text-slate-300">Oficina</button>
+        </div>
+        <a href="/proyectos" data-back class="shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-semibold text-slate-300 hover:bg-slate-800 transition-colors">
+          ← Volver
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-5 py-6">
+      <div class="mb-6">
+        <h1 class="text-xl font-black text-white" data-title>Acceso · Gimnasio</h1>
+        <p class="text-sm text-slate-400">Lectura de credenciales en la puerta. El sistema identifica al usuario y autoriza al instante.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Accesos hoy</p>
+          <p class="mt-1 text-2xl font-black text-white" data-kpi-total>247</p>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Autorizados</p>
+          <p class="mt-1 text-2xl font-black text-emerald-400" data-kpi-granted>231</p>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Denegados</p>
+          <p class="mt-1 text-2xl font-black text-rose-400" data-kpi-denied>16</p>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Aprobación</p>
+          <p class="mt-1 text-2xl font-black text-white" data-kpi-rate>93.5%</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-4">
+        {/* Lector de acceso */}
+        <section class="rounded-2xl border border-slate-800 bg-slate-900 p-5 flex flex-col">
+          <h2 class="font-bold text-white mb-1">Lector de acceso</h2>
+          <p class="text-xs text-slate-500 mb-4">Método de identificación</p>
+
+          <div class="grid grid-cols-2 gap-2 mb-4" data-methods>
+            <button type="button" data-method="tarjeta" class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition border-blue-500 bg-blue-500/15 text-blue-300">
+              <Icon name="credit-card" class="w-4 h-4" /> Tarjeta NFC
+            </button>
+            <button type="button" data-method="huella" class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition border-slate-700 text-slate-300 hover:border-slate-600">
+              <Icon name="fingerprint" class="w-4 h-4" /> Huella
+            </button>
+          </div>
+
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Puerta</span>
+          <div class="grid grid-cols-2 gap-2 mb-4" data-doors></div>
+
+          <button type="button" data-scan class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 px-4 py-3 text-sm font-bold text-white hover:brightness-110 transition disabled:opacity-60">
+            <Icon name="scan-line" class="w-4 h-4" /> <span data-scan-label>Simular escaneo</span>
+          </button>
+
+          <div class="mt-4 flex-1 flex items-center justify-center rounded-xl border border-dashed border-slate-700 p-5 text-center min-h-[120px]" data-result>
+            <p class="text-sm text-slate-500">Acerca una credencial al lector.</p>
+          </div>
+
+          <p class="mt-4 rounded-lg bg-slate-800/60 border border-slate-800 px-3 py-2.5 text-xs leading-relaxed text-slate-400">
+            <span class="font-semibold text-slate-300">Nota:</span> en esta demo el escaneo se simula con un clic.
+            En una instalación real la identificación es instantánea con <span class="text-slate-300">tarjeta de acceso (RFID/NFC)</span>
+            o <span class="text-slate-300">biometría (huella o rostro)</span>, sin que el personal tenga que buscar ni seleccionar a nadie.
+          </p>
+        </section>
+
+        {/* Registro de miembros */}
+        <section class="lg:col-span-2 rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+          <div class="px-5 py-3.5 border-b border-slate-800 flex items-center justify-between">
+            <h2 class="font-bold text-white">Registro de miembros</h2>
+            <span class="text-xs text-slate-500">Padrón del negocio (solo referencia)</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="text-left text-xs uppercase tracking-wider text-slate-500 border-b border-slate-800">
+                  <th class="font-semibold px-5 py-2.5">Miembro</th>
+                  <th class="font-semibold px-3 py-2.5">Estado</th>
+                  <th class="font-semibold px-3 py-2.5">Vigencia</th>
+                  <th class="font-semibold px-3 py-2.5">Zonas</th>
+                </tr>
+              </thead>
+              <tbody data-members></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      {/* Bitácora */}
+      <section class="mt-4 rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-slate-800 flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          <h2 class="font-bold text-white">Bitácora en vivo</h2>
+        </div>
+        <ul class="divide-y divide-slate-800 max-h-72 overflow-y-auto" data-log>
+          <li class="px-5 py-3 text-sm text-slate-500">Aún no hay lecturas en esta sesión.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      const SCENARIOS = [
+        { id: "UID-1001", status: "active", daysValid: 32, categories: ["general", "premium"] },
+        { id: "UID-1002", status: "active", daysValid: -4, categories: ["general"] },
+        { id: "UID-1003", status: "active", daysValid: 9, categories: ["general"] },
+        { id: "UID-1004", status: "suspended", daysValid: 90, categories: ["general", "premium"] },
+        { id: "UID-1005", status: "active", daysValid: 61, categories: ["general", "premium"] },
+        { id: "UID-1006", status: "active", daysValid: 2, categories: ["general"] },
+      ];
+
+      const SECTORS = {
+        gimnasio: {
+          title: "Acceso · Gimnasio",
+          doors: [{ key: "general", label: "Sala general" }, { key: "premium", label: "Zona premium" }],
+          names: { "UID-1001": "Ana Restrepo", "UID-1002": "Carlos Mora", "UID-1003": "Luisa Peña", "UID-1004": "Pedro Gómez", "UID-1005": "Sofía Lara", "UID-1006": "Andrés Ruiz" },
+        },
+        restaurante: {
+          title: "Acceso · Restaurante",
+          doors: [{ key: "general", label: "Salón general" }, { key: "premium", label: "Salón privado" }],
+          names: { "UID-1001": "Mesa VIP 4", "UID-1002": "Reserva 218", "UID-1003": "Cliente frecuente", "UID-1004": "Cuenta bloqueada", "UID-1005": "Socio Gold", "UID-1006": "Reserva 219" },
+        },
+        oficina: {
+          title: "Acceso · Oficina",
+          doors: [{ key: "general", label: "Áreas comunes" }, { key: "premium", label: "Área restringida" }],
+          names: { "UID-1001": "M. Álvarez", "UID-1002": "J. Torres", "UID-1003": "Visitante 12", "UID-1004": "Acceso revocado", "UID-1005": "Dir. de TI", "UID-1006": "Pasante" },
+        },
+      };
+
+      const $ = (sel) => document.querySelector(sel);
+      const kpi = { total: 247, granted: 231, denied: 16 };
+
+      let sector = "gimnasio";
+      let door = "general";
+      let method = "tarjeta";
+      let scanning = false;
+
+      function vigenciaText(days) {
+        if (days < 0) return { text: "Vencida", cls: "text-rose-400" };
+        if (days <= 5) return { text: `${days} día(s)`, cls: "text-amber-400" };
+        return { text: `${days} días`, cls: "text-slate-300" };
+      }
+
+      function statusBadge(s) {
+        const map = {
+          active: ["Activa", "bg-emerald-500/15 text-emerald-400"],
+          suspended: ["Suspendida", "bg-rose-500/15 text-rose-400"],
+        };
+        const [label, cls] = map[s] || ["—", "bg-slate-700 text-slate-300"];
+        return `<span class="inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${cls}">${label}</span>`;
+      }
+
+      function renderMembers() {
+        const names = SECTORS[sector].names;
+        const body = $("[data-members]");
+        body.innerHTML = "";
+        for (const s of SCENARIOS) {
+          const v = vigenciaText(s.daysValid);
+          const zonas = s.categories.map((c) => (c === "premium" ? "Premium" : "General")).join(" · ");
+          const tr = document.createElement("tr");
+          tr.dataset.row = s.id;
+          tr.className = "border-b border-slate-800/60 transition-colors";
+          tr.innerHTML =
+            `<td class="px-5 py-3"><div class="font-semibold text-slate-100">${names[s.id]}</div><div class="text-xs text-slate-500 font-mono">${s.id}</div></td>` +
+            `<td class="px-3 py-3">${statusBadge(s.status)}</td>` +
+            `<td class="px-3 py-3 ${v.cls} font-medium">${v.text}</td>` +
+            `<td class="px-3 py-3 text-slate-400">${zonas}</td>`;
+          body.appendChild(tr);
+        }
+      }
+
+      function renderDoors() {
+        const el = $("[data-doors]");
+        el.innerHTML = "";
+        for (const d of SECTORS[sector].doors) {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.textContent = d.label;
+          b.className = "rounded-lg border px-3 py-2 text-sm font-semibold transition " +
+            (d.key === door ? "border-blue-500 bg-blue-500/15 text-blue-300" : "border-slate-700 text-slate-300 hover:border-slate-600");
+          b.addEventListener("click", () => { door = d.key; renderDoors(); });
+          el.appendChild(b);
+        }
+      }
+
+      function evaluate(s, doorKey) {
+        if (s.status !== "active") return { decision: "denied", reason: "Cuenta suspendida" };
+        if (s.daysValid < 0) return { decision: "denied", reason: "Suscripción vencida" };
+        if (!s.categories.includes(doorKey)) return { decision: "denied", reason: "Sin permiso para esta zona" };
+        return { decision: "granted", reason: "Acceso autorizado" };
+      }
+
+      function updateKpis() {
+        $("[data-kpi-total]").textContent = kpi.total;
+        $("[data-kpi-granted]").textContent = kpi.granted;
+        $("[data-kpi-denied]").textContent = kpi.denied;
+        const rate = kpi.total ? ((kpi.granted / kpi.total) * 100).toFixed(1) : "0.0";
+        $("[data-kpi-rate]").textContent = rate + "%";
+      }
+
+      function highlightRow(id) {
+        const tr = document.querySelector(`[data-row="${id}"]`);
+        if (!tr) return;
+        tr.classList.add("bg-blue-500/10", "ring-1", "ring-inset", "ring-blue-500/40");
+        setTimeout(() => tr.classList.remove("bg-blue-500/10", "ring-1", "ring-inset", "ring-blue-500/40"), 1800);
+      }
+
+      function scan() {
+        if (scanning) return;
+        scanning = true;
+        const btn = $("[data-scan]");
+        btn.disabled = true;
+        $("[data-scan-label]").textContent = "Escaneando…";
+
+        const result = $("[data-result]");
+        result.className = "mt-4 flex-1 flex items-center justify-center rounded-xl border border-blue-500/40 bg-blue-500/10 p-5 text-center min-h-[120px]";
+        result.innerHTML = `<p class="text-sm text-blue-300 animate-pulse">Leyendo ${method === "tarjeta" ? "tarjeta" : "huella"}…</p>`;
+
+        // Llega una persona cualquiera a la puerta: credencial al azar.
+        const s = SCENARIOS[Math.floor(Math.random() * SCENARIOS.length)];
+
+        setTimeout(() => {
+          const { decision, reason } = evaluate(s, door);
+          const name = SECTORS[sector].names[s.id];
+          const ok = decision === "granted";
+          const doorLabel = (SECTORS[sector].doors.find((d) => d.key === door) || {}).label || "";
+
+          kpi.total += 1;
+          ok ? (kpi.granted += 1) : (kpi.denied += 1);
+          updateKpis();
+          highlightRow(s.id);
+
+          result.className = "mt-4 flex-1 flex flex-col items-center justify-center rounded-xl border p-5 text-center min-h-[120px] " +
+            (ok ? "border-emerald-500/40 bg-emerald-500/10" : "border-rose-500/40 bg-rose-500/10");
+          result.innerHTML =
+            `<div class="text-3xl ${ok ? "text-emerald-400" : "text-rose-400"}">${ok ? "✓" : "✕"}</div>` +
+            `<p class="mt-1 font-bold ${ok ? "text-emerald-300" : "text-rose-300"}">${ok ? "Acceso autorizado" : "Acceso denegado"}</p>` +
+            `<p class="text-sm text-slate-400">${ok ? doorLabel : reason}</p>` +
+            `<p class="text-xs text-slate-500 mt-1">${name} · ${s.id}</p>`;
+
+          const logEl = $("[data-log]");
+          const placeholder = logEl.querySelector("li.text-slate-500");
+          if (placeholder && logEl.children.length === 1) placeholder.remove();
+          const t = new Date().toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+          const li = document.createElement("li");
+          li.className = "px-5 py-2.5 text-sm flex items-center gap-3";
+          li.innerHTML =
+            `<span class="h-1.5 w-1.5 rounded-full ${ok ? "bg-emerald-500" : "bg-rose-500"}"></span>` +
+            `<span class="font-mono text-slate-400">${s.id}</span>` +
+            `<span class="text-slate-300">${name}</span>` +
+            `<span class="text-slate-500">— ${reason}</span>` +
+            `<span class="ml-auto text-xs text-slate-600 tabular-nums">${t}</span>`;
+          logEl.prepend(li);
+
+          btn.disabled = false;
+          $("[data-scan-label]").textContent = "Simular escaneo";
+          scanning = false;
+        }, 650);
+      }
+
+      function render() {
+        $("[data-title]").textContent = SECTORS[sector].title;
+        renderMembers();
+        renderDoors();
+      }
+
+      document.querySelectorAll("[data-sector]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          sector = btn.dataset.sector;
+          door = "general";
+          document.querySelectorAll("[data-sector]").forEach((b) => {
+            const on = b === btn;
+            b.classList.toggle("bg-white", on);
+            b.classList.toggle("text-slate-900", on);
+            b.classList.toggle("text-slate-300", !on);
+          });
+          render();
+        });
+      });
+      const first = document.querySelector('[data-sector="gimnasio"]');
+      first.classList.add("bg-white", "text-slate-900");
+      first.classList.remove("text-slate-300");
+
+      document.querySelectorAll("[data-method]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          method = btn.dataset.method;
+          document.querySelectorAll("[data-method]").forEach((b) => {
+            const on = b === btn;
+            b.classList.toggle("border-blue-500", on);
+            b.classList.toggle("bg-blue-500/15", on);
+            b.classList.toggle("text-blue-300", on);
+            b.classList.toggle("border-slate-700", !on);
+            b.classList.toggle("text-slate-300", !on);
+          });
+        });
+      });
+
+      $("[data-scan]").addEventListener("click", scan);
+
+      $("[data-back]").addEventListener("click", (e) => {
+        if (window.opener && !window.opener.closed) {
+          e.preventDefault();
+          try { window.opener.focus(); } catch (_) {}
+          window.close();
+        }
+      });
+
+      updateKpis();
+      render();
+    </script>
+  </body>
+</html>

@@ -19,6 +19,8 @@ export const ui = {
     'meta.hostalk.description': 'Conoce hosTalk: comunicación en tiempo real entre huéspedes y staff de hotel, cada uno en su idioma.',
     'meta.oferta.title': 'Gran oferta de lanzamiento: tu sitio web pro en una semana - Ferser',
     'meta.oferta.description': 'Sitio web profesional + dominio + hosting por 1 año. Planes desde $500.000 con 50% de descuento de lanzamiento. Cupos limitados, vigencia hasta el 15 de agosto de 2026.',
+    'meta.automatizaciones.title': 'Automatizaciones - Ferser',
+    'meta.automatizaciones.description': 'Simuladores interactivos de automatizaciones para comercios locales: control de acceso, alertas de facturación y más.',
 
     'nav.tagline': 'Ingeniería de software enfocada en resolver tus necesidades',
     'nav.contact': 'Contáctanos',
@@ -190,6 +192,8 @@ export const ui = {
     'meta.hostalk.description': 'Discover hosTalk: real-time communication between hotel guests and staff, each in their own language.',
     'meta.oferta.title': 'Launch offer: your pro website in one week - Ferser',
     'meta.oferta.description': 'Professional website + domain + hosting for 1 year. Plans from $500K COP with a 50% launch discount. Limited spots, valid through August 15, 2026.',
+    'meta.automatizaciones.title': 'Automations - Ferser',
+    'meta.automatizaciones.description': 'Interactive automation simulators for local businesses: access control, billing alerts and more.',
 
     'nav.tagline': 'Software engineering focused on solving your needs',
     'nav.contact': 'Contact us',
