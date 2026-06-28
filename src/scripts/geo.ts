@@ -108,12 +108,18 @@ async function runGeoLookup() {
 }
 
 if (needsGeo) {
-  // Fuera de la ruta crítica: esperamos a que la página cargue y el hilo quede
-  // inactivo, para no competir con los recursos críticos ni penalizar el LCP.
-  const schedule = () =>
-    'requestIdleCallback' in window
-      ? window.requestIdleCallback(runGeoLookup, { timeout: 2500 })
-      : setTimeout(runGeoLookup, 1500);
-  if (document.readyState === 'complete') schedule();
-  else window.addEventListener('load', schedule, { once: true });
+  // "Load on interaction": no lanzamos la consulta durante la carga, sino en la
+  // primera interacción real. Así sale por completo de la ruta crítica (los
+  // rastreadores de rendimiento no interactúan, luego ni siquiera se dispara) y
+  // tampoco compite por la red en ningún caso. La moneda ya está bien fijada por
+  // timezone antes del paint; esto solo la refina cuando el usuario interactúa.
+  const events = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove'] as const;
+  let fired = false;
+  const trigger = () => {
+    if (fired) return;
+    fired = true;
+    events.forEach((e) => window.removeEventListener(e, trigger));
+    runGeoLookup();
+  };
+  events.forEach((e) => window.addEventListener(e, trigger, { once: true, passive: true }));
 }
