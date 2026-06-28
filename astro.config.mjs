@@ -7,6 +7,9 @@ export default defineConfig({
   trailingSlash: 'never',
   build: {
     format: 'directory',
+    // Inlinear el CSS en el HTML: el bundle es pequeño (~16 KiB) y así
+    // ahorramos una petición render-blocking en la carga inicial.
+    inlineStylesheets: 'always',
   },
   // Mantener vivas las URLs antiguas ya compartidas y todas las /en/* previas.
   // (El idioma ahora se deduce del slug, ver src/i18n/utils.ts — sin prefijo /en.)
@@ -24,7 +27,7 @@ export default defineConfig({
     sitemap({
       // Excluir demos del sitemap (son plantillas ficticias, ya tienen noindex
       // pero además queremos que ni siquiera se descubran vía sitemap)
-      filter: (page) => !page.includes('/demo/'),
+      filter: (page) => !page.includes('/demo/') && !page.includes('/og/'),
     }),
   ],
   vite: {

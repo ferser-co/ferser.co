@@ -35,7 +35,22 @@ const nextItems: TranslationKey[] = [
   'hostalk.status.next3',
   'hostalk.status.next4',
 ];
+
+// Datos estructurados del proyecto hosTalk
+const hostalkLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'hosTalk',
+  applicationCategory: 'CommunicationApplication',
+  operatingSystem: 'Web',
+  url: 'https://hostalk.ferser.co',
+  description: t('meta.hostalk.description'),
+  inLanguage: lang === 'es' ? 'es-CO' : 'en-US',
+  publisher: { '@id': 'https://ferser.co/#organization' },
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(hostalkLd)} is:inline />
 
 <section class="relative pt-32 pb-16 overflow-hidden">
   <div class="blob bg-blue-300 dark:bg-blue-700 w-96 h-96 rounded-full top-10 left-[-100px] opacity-25"></div>

@@ -52,7 +52,7 @@ const frame = (inner) => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" h
 // ── Imagen de marca (default) ───────────────────────────────────────────────
 const brandSvg = frame(`
   <text x="90" y="215" font-family="${FONT}" font-weight="900" font-size="150" fill="url(#brand)" letter-spacing="-5">Ferser</text>
-  <text x="96" y="300" font-family="${FONT}" font-weight="600" font-size="40" fill="#e2e8f0">Ingeniería de software a la medida</text>
+  <text x="96" y="300" font-family="${FONT}" font-weight="600" font-size="40" fill="#e2e8f0">Soluciones informáticas a la medida</text>
   <rect x="96" y="345" width="120" height="5" rx="2.5" fill="#22d3ee"/>
   <text x="96" y="430" font-family="${FONT}" font-weight="700" font-size="32" fill="#94a3b8">Desarrollo · Consultoría TI · Capacitación</text>
   <text x="96" y="560" font-family="${FONT}" font-weight="700" font-size="26" fill="#64748b">ferser.co</text>

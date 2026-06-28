@@ -1,0 +1,67 @@
+---
+/**
+ * Réplica en HTML/CSS de la tarjeta OG (vista previa social) de
+ * recograscolombia.com. Solo el logo es una imagen (webp ~18 KB, lazy);
+ * el resto es estático. Llena por completo su contenedor (alto y ancho)
+ * tanto en escritorio como en móvil; los tamaños usan unidades de
+ * container-query (cqw) para conservar proporciones a cualquier ancho.
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div
+  class={`recogras-og relative h-full w-full min-h-[18rem] overflow-hidden ${className}`}
+  role="img"
+  aria-label="Tarjeta de recograscolombia.com — Recolección certificada de aceite usado y trampa grasa"
+>
+  {/* Fondo: anillos, brillo, gotas y reciclaje */}
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <div class="absolute inset-0" style="background:radial-gradient(circle at 90% 12%, rgba(255,255,255,0.16), transparent 48%);"></div>
+    <div class="absolute rounded-full" style="border:1.2cqw solid rgba(255,255,255,0.07); width:62cqw; height:62cqw; right:-16cqw; bottom:-22cqw;"></div>
+    <div class="absolute rounded-full" style="border:1.2cqw solid rgba(255,255,255,0.06); width:38cqw; height:38cqw; right:-3cqw; bottom:-8cqw;"></div>
+    <Icon name="recycle" class="absolute -right-8 -top-8 w-2/5 max-w-[12rem] aspect-square text-white/10 animate-[spin_26s_linear_infinite]" />
+    <Icon name="droplet" class="absolute right-[14%] top-[10%] w-[5cqw] h-[5cqw] text-white/15" />
+    <Icon name="droplets" class="absolute right-[8%] bottom-[14%] w-[7cqw] h-[7cqw] text-white/15" />
+    <Icon name="leaf" class="absolute left-[6%] bottom-[10%] w-[6cqw] h-[6cqw] text-white/12" />
+  </div>
+
+  {/* Contenido, distribuido para llenar el alto */}
+  <div class="relative flex h-full flex-col justify-between" style="padding:7cqw 7cqw;">
+    <div class="self-start bg-white shadow-lg" style="border-radius:2.4cqw; padding:2.2cqw 2.8cqw;">
+      <img
+        src="/img/logo-recogras.webp"
+        alt="Recogras"
+        loading="lazy"
+        decoding="async"
+        style="height:7cqw; min-height:2rem; width:auto; display:block;"
+      />
+    </div>
+
+    <div style="margin:5cqw 0;">
+      <h3 class="font-black text-white" style="font-size:6.2cqw; line-height:1.08; letter-spacing:-0.02em; max-width:88%;">
+        Recolección certificada de aceite usado y trampa grasa
+      </h3>
+      <div class="rounded-full bg-amber-400" style="height:0.8cqw; min-height:3px; width:12cqw; margin:3.4cqw 0;"></div>
+      <p class="font-medium text-white/80" style="font-size:2.8cqw;">
+        Certificado de disposición final · Economía circular
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center" style="gap:0.6cqw 2.8cqw; font-size:2.6cqw;">
+      <span class="font-bold text-amber-400">recograscolombia.com</span>
+      <span class="font-medium text-white/65">Cartagena de Indias, Colombia</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .recogras-og {
+    container-type: inline-size;
+    background: linear-gradient(135deg, #1a6aa6 0%, #135888 48%, #0c456f 100%);
+  }
+</style>

@@ -16,7 +16,7 @@ const t = lang === 'es' ? {
   heroSubtitle: 'Sitio + dominio + hosting por un año. Eliges entre 3 plantillas pensadas para PYMES. Te lo dejamos publicado y andando.',
   validUntil: 'Vigencia: hasta el',
   validDate: '15 de agosto de 2026',
-  spotsLeft: '10 cupos disponibles',
+  spotsLeft: '8 cupos disponibles',
   pricingTitle: 'Elige tu plan',
   pricingSubtitle: 'Dos opciones. Sin letra pequeña.',
   esencialName: 'Esencial',
@@ -68,20 +68,25 @@ const t = lang === 'es' ? {
   templatesViewDemo: 'Ver demo',
   proofEyebrow: 'Ya entregamos',
   proofTitle: 'No es solo promesa: ya pusimos sitios en producción',
-  proofText: 'Forzec es una de las landings que diseñamos y publicamos. Échale un ojo al tipo de acabado que entregamos.',
-  proofCta: 'Ver forzec.com',
+  proofText: 'Recogras es uno de los sitios que diseñamos y pusimos en producción. Échale un ojo al tipo de acabado que entregamos.',
+  proofCta: 'Ver recograscolombia.com',
   templates: [
     { slug: 'servicios', name: 'Servicios profesionales', description: 'Para consultoras, despachos, agencias y firmas que venden servicios B2B.', audience: 'Abogados, contadores, ingenieros, consultores', palette: 'from-blue-600 to-indigo-700' },
     { slug: 'local',     name: 'Negocio local',           description: 'Para comercios con sede física que necesitan mostrar menú, horarios y ubicación.', audience: 'Restaurantes, salones, talleres, tiendas',        palette: 'from-amber-600 to-orange-700' },
     { slug: 'producto',  name: 'Producto / Startup',      description: 'Single-page para productos digitales o apps con pricing y CTA de conversión.',     audience: 'SaaS, apps, productos digitales',                palette: 'from-violet-600 to-fuchsia-700' },
   ],
   addonsTitle: 'Add-ons opcionales',
-  addonsSubtitle: 'Cosas extra que puedes agregar al pedido.',
+  addonsSubtitle: 'Extras que puedes sumar a tu pedido.',
+  addonsRecurringBadge: 'Anual',
   addons: [
-    { name: 'Versión en inglés',    desc: 'Sitio completo en inglés con selector de idioma', prices: { cop: '+$150.000', usd: '+$45', eur: '+€40' } },
-    { name: 'Galería extendida',    desc: 'Sección con +20 fotos optimizadas y lightbox',    prices: { cop: '+$80.000',  usd: '+$25', eur: '+€25' } },
-    { name: 'Sección de blog',      desc: 'Hasta 10 entradas iniciales con edición vía Markdown', prices: { cop: '+$200.000', usd: '+$60', eur: '+€55' } },
-    { name: 'Mantenimiento año 2',  desc: 'Actualizaciones, soporte y backups mensuales',    prices: { cop: '$150.000 / año', usd: '$45 / año', eur: '€40 / año' } },
+    { icon: 'calendar-check', name: 'Reserva de citas online', desc: 'Botón para que tus clientes agenden solos, 24/7',      prices: { cop: '+$120.000', usd: '+$35', eur: '+€32' } },
+    { icon: 'star',           name: 'Reseñas de Google',       desc: 'Tus calificaciones reales mostradas en el sitio',      prices: { cop: '+$90.000',  usd: '+$28', eur: '+€26' } },
+    { icon: 'trending-up',    name: 'Analítica + píxel',       desc: 'Google Analytics y Meta Pixel para medir y pautar',    prices: { cop: '+$80.000',  usd: '+$25', eur: '+€23' } },
+    { icon: 'languages',      name: 'Versión en inglés',       desc: 'Sitio completo en inglés con selector de idioma',      prices: { cop: '+$150.000', usd: '+$45', eur: '+€40' } },
+    { icon: 'images',         name: 'Galería extendida',       desc: 'Sección con +20 fotos optimizadas y lightbox',         prices: { cop: '+$80.000',  usd: '+$25', eur: '+€25' } },
+    { icon: 'mail',           name: 'Correo corporativo',      desc: 'Cuenta nombre@tudominio.co configurada por 1 año',     prices: { cop: '+$100.000', usd: '+$30', eur: '+€28' } },
+    { icon: 'newspaper',      name: 'Sección de blog',         desc: 'Hasta 10 entradas iniciales editables en Markdown',    prices: { cop: '+$200.000', usd: '+$60', eur: '+€55' } },
+    { icon: 'wrench', recurring: true, name: 'Mantenimiento año 2', desc: 'Actualizaciones, soporte y backups mensuales',    prices: { cop: '$250.000 / año', usd: '$75 / año', eur: '€70 / año' } },
   ],
   processTitle: 'Cómo funciona',
   processSubtitle: 'De la firma al sitio publicado, en cuatro pasos.',
@@ -112,7 +117,7 @@ const t = lang === 'es' ? {
   heroSubtitle: 'Website + domain + hosting for one year. Choose from 3 templates built for small businesses. We deliver it ready to go.',
   validUntil: 'Valid through',
   validDate: 'August 15, 2026',
-  spotsLeft: '10 spots available',
+  spotsLeft: '8 spots available',
   pricingTitle: 'Choose your plan',
   pricingSubtitle: 'Two options. No fine print.',
   esencialName: 'Essential',
@@ -164,8 +169,8 @@ const t = lang === 'es' ? {
   templatesViewDemo: 'View demo',
   proofEyebrow: 'Already shipped',
   proofTitle: "It's not just a promise — we've shipped sites to production",
-  proofText: 'Forzec is one of the landing pages we designed and launched. Take a look at the kind of finish we deliver.',
-  proofCta: 'View forzec.com',
+  proofText: 'Recogras is one of the sites we designed and shipped to production. Take a look at the kind of finish we deliver.',
+  proofCta: 'View recograscolombia.com',
   templates: [
     { slug: 'servicios', name: 'Professional services', description: 'For consultancies, firms, agencies and businesses selling B2B services.',         audience: 'Lawyers, accountants, engineers, consultants', palette: 'from-blue-600 to-indigo-700' },
     { slug: 'local',     name: 'Local business',        description: 'For brick-and-mortar businesses that need to show menu, hours and location.',     audience: 'Restaurants, salons, shops, workshops',        palette: 'from-amber-600 to-orange-700' },
@@ -173,11 +178,16 @@ const t = lang === 'es' ? {
   ],
   addonsTitle: 'Optional add-ons',
   addonsSubtitle: 'Extras you can add to your order.',
+  addonsRecurringBadge: 'Yearly',
   addons: [
-    { name: 'Spanish version',     desc: 'Full Spanish version with language switcher',          prices: { cop: '+$150.000', usd: '+$45', eur: '+€40' } },
-    { name: 'Extended gallery',    desc: '+20 optimized photos section with lightbox',           prices: { cop: '+$80.000',  usd: '+$25', eur: '+€25' } },
-    { name: 'Blog section',        desc: 'Up to 10 starter posts editable via Markdown',         prices: { cop: '+$200.000', usd: '+$60', eur: '+€55' } },
-    { name: 'Year 2 maintenance',  desc: 'Updates, support and monthly backups',                 prices: { cop: '$150.000 / year', usd: '$45 / year', eur: '€40 / year' } },
+    { icon: 'calendar-check', name: 'Online booking',    desc: 'A button so clients book on their own, 24/7',          prices: { cop: '+$120.000', usd: '+$35', eur: '+€32' } },
+    { icon: 'star',           name: 'Google reviews',    desc: 'Your real ratings shown on the site',                 prices: { cop: '+$90.000',  usd: '+$28', eur: '+€26' } },
+    { icon: 'trending-up',    name: 'Analytics + pixel', desc: 'Google Analytics & Meta Pixel to measure and run ads', prices: { cop: '+$80.000',  usd: '+$25', eur: '+€23' } },
+    { icon: 'languages',      name: 'Spanish version',   desc: 'Full Spanish version with language switcher',          prices: { cop: '+$150.000', usd: '+$45', eur: '+€40' } },
+    { icon: 'images',         name: 'Extended gallery',  desc: '+20 optimized photos section with lightbox',           prices: { cop: '+$80.000',  usd: '+$25', eur: '+€25' } },
+    { icon: 'mail',           name: 'Corporate email',   desc: 'name@yourdomain.com mailbox for 1 year',              prices: { cop: '+$100.000', usd: '+$30', eur: '+€28' } },
+    { icon: 'newspaper',      name: 'Blog section',       desc: 'Up to 10 starter posts editable via Markdown',         prices: { cop: '+$200.000', usd: '+$60', eur: '+€55' } },
+    { icon: 'wrench', recurring: true, name: 'Year 2 maintenance', desc: 'Updates, support and monthly backups',       prices: { cop: '$250.000 / year', usd: '$75 / year', eur: '€70 / year' } },
   ],
   processTitle: 'How it works',
   processSubtitle: 'From sign-off to live site, in four steps.',
@@ -214,8 +224,56 @@ const discountLabel = '−50%';
 // La lista del Plus es larga a propósito: mostramos las primeras y el resto tras "ver más"
 const plusVisible = t.plusFeatures.slice(0, 8);
 const plusMore = t.plusFeatures.slice(8);
-const forzecHref = 'https://forzec.com';
+const recograsHref = 'https://recograscolombia.com';
+
+// ─── Datos estructurados de la oferta (Service + Offers + FAQ) ───────────────
+const orgRef = { '@id': 'https://ferser.co/#organization' };
+const offerLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: lang === 'es' ? 'Diseño y desarrollo de sitio web profesional' : 'Professional website design & development',
+      serviceType: lang === 'es' ? 'Desarrollo web para PYMES' : 'Web development for small businesses',
+      provider: orgRef,
+      areaServed: ['CO', 'ES', 'US'],
+      url: new URL(localizedPath(lang, '/oferta-de-lanzamiento'), Astro.site).toString(),
+      offers: [
+        {
+          '@type': 'Offer',
+          name: t.esencialName,
+          description: t.esencialDesc,
+          price: '500000',
+          priceCurrency: 'COP',
+          priceValidUntil: '2026-08-15',
+          availability: 'https://schema.org/InStock',
+          url: new URL(`${contactBase}?plan=esencial`, Astro.site).toString(),
+        },
+        {
+          '@type': 'Offer',
+          name: t.plusName,
+          description: t.plusDesc,
+          price: '700000',
+          priceCurrency: 'COP',
+          priceValidUntil: '2026-08-15',
+          availability: 'https://schema.org/InStock',
+          url: new URL(`${contactBase}?plan=plus`, Astro.site).toString(),
+        },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: t.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(offerLd)} is:inline />
 
 {/* Hero */}
 <section class="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
@@ -368,44 +426,74 @@ const forzecHref = 'https://forzec.com';
   </div>
 </section>
 
-{/* Prueba social — Forzec */}
+{/* Prueba social — Recogras */}
 <section class="py-12 sm:py-16">
   <div class="max-w-5xl mx-auto px-6">
-    <div class="fade-in-up relative overflow-hidden rounded-3xl border border-indigo-200/60 dark:border-indigo-800/40 bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/30 dark:to-slate-900 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-      <div class="flex-1 min-w-0">
-        <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 mb-3">
-          <Icon name="rocket" class="w-3 h-3" />
-          {t.proofEyebrow}
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mb-2">{t.proofTitle}</h2>
-        <p class="text-base text-slate-600 dark:text-slate-300 max-w-2xl">{t.proofText}</p>
+    <div class="fade-in-up group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0f5e92] via-[#178a93] to-[#3aa06a] p-8 sm:p-10 shadow-2xl shadow-teal-900/20">
+      {/* Brillo y blobs de marca */}
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_55%)]"></div>
+      <div class="absolute -bottom-20 -left-16 w-64 h-64 rounded-full bg-amber-400/25 blur-3xl"></div>
+      {/* Flechas de reciclaje, marca de agua con giro lento */}
+      <Icon name="recycle" class="absolute -right-10 -top-10 w-52 h-52 text-white/10 animate-[spin_24s_linear_infinite]" />
+
+      <div class="relative flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-center gap-2.5 mb-4">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-white/15 ring-1 ring-white/25 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+              <Icon name="rocket" class="w-3 h-3" />
+              {t.proofEyebrow}
+            </span>
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-400 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-950">
+              <Icon name="recycle" class="w-3 h-3" />
+              {lang === 'es' ? 'Economía circular' : 'Circular economy'}
+            </span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white mb-2">{t.proofTitle}</h2>
+          <p class="text-base text-white/85 max-w-2xl mb-4">{t.proofText}</p>
+          <span class="inline-flex items-center gap-2 rounded-lg bg-white/10 ring-1 ring-white/20 px-3 py-1.5 text-xs font-semibold text-white/90">
+            <span class="flex gap-1">
+              <span class="h-2 w-2 rounded-full bg-red-400/90"></span>
+              <span class="h-2 w-2 rounded-full bg-amber-300/90"></span>
+              <span class="h-2 w-2 rounded-full bg-emerald-300/90"></span>
+            </span>
+            recograscolombia.com
+          </span>
+        </div>
+        <a href={recograsHref} target="_blank" rel="noopener" class="shrink-0 inline-flex items-center gap-2 rounded-xl bg-amber-400 px-6 py-3.5 text-sm font-bold text-amber-950 shadow-lg shadow-amber-900/25 hover:bg-amber-300 hover:-translate-y-0.5 transition-all">
+          {t.proofCta}
+          <Icon name="arrow-up-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
       </div>
-      <a href={forzecHref} target="_blank" rel="noopener" class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/40 hover:-translate-y-0.5 transition-all">
-        {t.proofCta}
-        <Icon name="arrow-up-right" class="w-4 h-4" />
-      </a>
     </div>
   </div>
 </section>
 
 {/* Add-ons */}
 <section class="py-20 sm:py-24">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="max-w-2xl mb-12 fade-in-up">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-2xl mb-10 fade-in-up">
       <h2 class="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 dark:text-white mb-3">
         {t.addonsTitle}
       </h2>
       <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300">{t.addonsSubtitle}</p>
     </div>
 
-    <div class="grid sm:grid-cols-2 gap-3">
+    <div class="grid sm:grid-cols-2 gap-2.5">
       {t.addons.map((a, i) => (
-        <div class="fade-in-up flex items-start justify-between gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5" style={`transition-delay: ${i * 50}ms;`}>
-          <div class="min-w-0">
-            <h3 class="text-base font-bold text-slate-900 dark:text-white">{a.name}</h3>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{a.desc}</p>
+        <div class="fade-in-up group flex items-center gap-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-3.5 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors" style={`transition-delay: ${i * 40}ms;`}>
+          <span class="shrink-0 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+            <Icon name={a.icon} class="w-4 h-4" />
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">{a.name}</h3>
+              {a.recurring && (
+                <span class="shrink-0 inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">{t.addonsRecurringBadge}</span>
+              )}
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-snug mt-0.5">{a.desc}</p>
           </div>
-          <Price class="shrink-0 text-base font-black tracking-tight text-indigo-700 dark:text-indigo-400" {...a.prices} />
+          <Price class="shrink-0 text-sm font-black tracking-tight text-indigo-700 dark:text-indigo-400 text-right" {...a.prices} />
         </div>
       ))}
     </div>

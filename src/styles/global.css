@@ -6,7 +6,7 @@
 @theme {
   --color-primary: #2563eb;
   --color-secondary: #06b6d4;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
 
   --max-width-8xl: 90rem;
 }

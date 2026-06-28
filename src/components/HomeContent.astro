@@ -1,9 +1,61 @@
 ---
 import { getLangFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import type { TranslationKey } from '../i18n/ui';
 
 import Icon from './Icon.astro';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const contactBase = localizedPath(lang, '/contacto');
+
+// Tarjetas de servicio: cada una enlaza al contacto con el servicio
+// preseleccionado (?servicio=…) y tiene su propio acento de color.
+const services: Array<{
+  key: string;
+  icon: string;
+  title: TranslationKey;
+  desc: TranslationKey;
+  iconWrap: string;
+  bar: string;
+  cta: string;
+}> = [
+  {
+    key: 'consulting',
+    icon: 'headset',
+    title: 'services.consulting.title',
+    desc: 'services.consulting.desc',
+    iconWrap: 'bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300',
+    bar: 'from-blue-500 to-cyan-500',
+    cta: 'text-blue-600 dark:text-blue-400',
+  },
+  {
+    key: 'dev',
+    icon: 'code',
+    title: 'services.dev.title',
+    desc: 'services.dev.desc',
+    iconWrap: 'bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-300',
+    bar: 'from-purple-500 to-fuchsia-500',
+    cta: 'text-purple-600 dark:text-purple-400',
+  },
+  {
+    key: 'training',
+    icon: 'book-open',
+    title: 'services.training.title',
+    desc: 'services.training.desc',
+    iconWrap: 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-600 dark:text-cyan-300',
+    bar: 'from-cyan-500 to-sky-500',
+    cta: 'text-cyan-600 dark:text-cyan-400',
+  },
+  {
+    key: 'automation',
+    icon: 'workflow',
+    title: 'services.automation.title',
+    desc: 'services.automation.desc',
+    iconWrap: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300',
+    bar: 'from-emerald-500 to-teal-500',
+    cta: 'text-emerald-600 dark:text-emerald-400',
+  },
+];
 ---
 
 <section class="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden">
@@ -155,46 +207,24 @@ const t = useTranslations(lang);
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="group p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 fade-in-up">
-        <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-          <Icon name="headset" class="w-7 h-7" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('services.consulting.title')}</h3>
-        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{t('services.consulting.desc')}</p>
-      </div>
-
-      <div
-        class="group p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 fade-in-up"
-        style="transition-delay: 0.1s;"
-      >
-        <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-300 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-          <Icon name="code" class="w-7 h-7" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('services.dev.title')}</h3>
-        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{t('services.dev.desc')}</p>
-      </div>
-
-      <div
-        class="group p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 fade-in-up"
-        style="transition-delay: 0.2s;"
-      >
-        <div class="w-14 h-14 bg-cyan-100 dark:bg-cyan-900/40 text-cyan-600 dark:text-cyan-300 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-          <Icon name="book-open" class="w-7 h-7" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('services.training.title')}</h3>
-        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{t('services.training.desc')}</p>
-      </div>
-
-      <div
-        class="group p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 fade-in-up"
-        style="transition-delay: 0.3s;"
-      >
-        <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-          <Icon name="workflow" class="w-7 h-7" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('services.automation.title')}</h3>
-        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{t('services.automation.desc')}</p>
-      </div>
+      {services.map((s, i) => (
+        <a
+          href={`${contactBase}?servicio=${s.key}`}
+          class="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 fade-in-up"
+          style={`transition-delay: ${i * 0.1}s;`}
+        >
+          <span class={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${s.bar} origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></span>
+          <div class={`w-14 h-14 ${s.iconWrap} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform`}>
+            <Icon name={s.icon} class="w-7 h-7" />
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{t(s.title)}</h3>
+          <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{t(s.desc)}</p>
+          <span class={`mt-auto pt-6 inline-flex items-center gap-1.5 text-sm font-bold ${s.cta}`}>
+            {t('services.cta')}
+            <Icon name="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </a>
+      ))}
     </div>
   </div>
 </section>

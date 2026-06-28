@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
 
-# Demos de plantillas — no indexar (son ejemplos ficticios)
-Disallow: /oferta/demo/
+# Las demos de plantillas y automatizaciones no se indexan mediante la etiqueta
+# meta "noindex" de cada página (no se bloquean aquí para que los rastreadores
+# puedan leer ese noindex) y se excluyen del sitemap.
 
 Sitemap: https://ferser.co/sitemap-index.xml

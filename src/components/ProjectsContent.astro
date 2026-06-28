@@ -1,62 +1,76 @@
 ---
-import { getLangFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import HostalkChatPreview from './HostalkChatPreview.astro';
+import { getLangFromUrl, useTranslations, localizedPath } from "../i18n/utils";
+import HostalkChatPreview from "./HostalkChatPreview.astro";
+import RecograsOgCard from "./RecograsOgCard.astro";
 
-import Icon from './Icon.astro';
+import Icon from "./Icon.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const detailHref = localizedPath(lang, '/proyectos/hostalk');
+const detailHref = localizedPath(lang, "/proyectos/hostalk");
 
 const techStack = [
-  'React + Vite',
-  'FastAPI async',
-  'WebSockets',
-  'PostgreSQL',
-  'Docker + Caddy',
-  'Web Speech API',
+  "React + Vite",
+  "FastAPI async",
+  "WebSockets",
+  "PostgreSQL",
+  "Docker + Caddy",
+  "Web Speech API",
 ];
 
-const forzecHref = 'https://forzec.com';
-const forzecTech = ['Astro', 'Tailwind CSS', 'SSG', 'Landing'];
+const recograsHref = "https://recograscolombia.com";
+const recograsTech = ["Astro", "Tailwind CSS", "SSG", "SEO"];
+const forzecHref = "https://forzec.com";
 
 const automations = [
   {
-    name: 'Control de acceso inteligente',
-    desc: 'Valida credenciales (carné, QR o tag) por vigencia y permisos, con bitácora en vivo. Adaptable a gimnasios, oficinas, clubes y más.',
-    demoHref: '/automatizaciones/demo/control-acceso',
-    icon: 'shield-check',
-    tags: ['FastAPI', 'Dashboard', 'API'],
+    name: "Control de acceso inteligente",
+    desc: "Valida credenciales (carné, QR o tag) por vigencia y permisos, con bitácora en vivo. Adaptable a gimnasios, oficinas, clubes y más.",
+    demoHref: "/automatizaciones/demo/control-acceso",
+    icon: "shield-check",
+    tags: ["FastAPI", "Dashboard", "API"],
   },
   {
-    name: 'Alertas de facturación recurrente',
-    desc: 'Convierte eventos de pago (cargo rechazado, suscripción vencida) en mensajes preventivos por WhatsApp o correo. Reduce la fuga de ingresos por cobros fallidos.',
-    demoHref: '/automatizaciones/demo/alertas-facturacion',
-    icon: 'bell-ring',
-    tags: ['FastAPI', 'Dashboard', 'Webhooks'],
+    name: "Alertas de facturación recurrente",
+    desc: "Convierte eventos de pago (cargo rechazado, suscripción vencida) en mensajes preventivos por WhatsApp o correo. Reduce la fuga de ingresos por cobros fallidos.",
+    demoHref: "/automatizaciones/demo/alertas-facturacion",
+    icon: "bell-ring",
+    tags: ["FastAPI", "Dashboard", "Webhooks"],
   },
   {
-    name: 'Reservas con lista de espera',
-    desc: 'Motor de reservas por capacidad: cuando un cupo se llena, los nuevos entran a una lista de espera y ascienden solos al liberarse un lugar. Para clases, mesas, salas y eventos.',
-    demoHref: '/automatizaciones/demo/gestion-reservas',
-    icon: 'calendar',
-    tags: ['FastAPI', 'Dashboard', 'API'],
+    name: "Reservas con lista de espera",
+    desc: "Motor de reservas por capacidad: cuando un cupo se llena, los nuevos entran a una lista de espera y ascienden solos al liberarse un lugar. Para clases, mesas, salas y eventos.",
+    demoHref: "/automatizaciones/demo/gestion-reservas",
+    icon: "calendar",
+    tags: ["FastAPI", "Dashboard", "API"],
   },
 ];
 ---
 
 <section class="relative pt-32 pb-16 overflow-hidden">
-  <div class="blob bg-blue-300 dark:bg-blue-700 w-96 h-96 rounded-full top-20 left-[-100px] opacity-30"></div>
-  <div class="blob bg-cyan-300 dark:bg-cyan-700 w-80 h-80 rounded-full top-10 right-[-50px] animation-delay-2000 opacity-30"></div>
+  <div
+    class="blob bg-blue-300 dark:bg-blue-700 w-96 h-96 rounded-full top-20 left-[-100px] opacity-30"
+  >
+  </div>
+  <div
+    class="blob bg-cyan-300 dark:bg-cyan-700 w-80 h-80 rounded-full top-10 right-[-50px] animation-delay-2000 opacity-30"
+  >
+  </div>
 
   <div class="max-w-6xl mx-auto px-6 text-center relative z-10 fade-in-up">
-    <h1 class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white mb-6">
-      {t('projects.h1.line1')}
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-500 dark:from-blue-400 dark:via-cyan-300 dark:to-blue-300">
-        {t('projects.h1.line2')}
+    <h1
+      class="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white mb-6"
+    >
+      {t("projects.h1.line1")}
+      <span
+        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-500 dark:from-blue-400 dark:via-cyan-300 dark:to-blue-300"
+      >
+        {t("projects.h1.line2")}
       </span>
     </h1>
-    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium max-w-2xl mx-auto">
-      {t('projects.subtitle')}
+    <p
+      class="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium max-w-2xl mx-auto"
+    >
+      {t("projects.subtitle")}
     </p>
   </div>
 </section>
@@ -65,41 +79,59 @@ const automations = [
   <div class="max-w-6xl mx-auto px-6">
     <div class="flex items-center gap-3 mb-8 fade-in-up">
       <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
-      <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-        {t('projects.featured')}
+      <span
+        class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+      >
+        {t("projects.featured")}
       </span>
       <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
     </div>
 
-    <article class="fade-in-up relative overflow-hidden rounded-3xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl">
-      <div class="absolute -inset-px rounded-3xl bg-gradient-to-r from-blue-500/20 via-cyan-400/20 to-blue-500/20 blur-2xl opacity-40 -z-10"></div>
+    <article
+      class="fade-in-up relative overflow-hidden rounded-3xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl"
+    >
+      <div
+        class="absolute -inset-px rounded-3xl bg-gradient-to-r from-blue-500/20 via-cyan-400/20 to-blue-500/20 blur-2xl opacity-40 -z-10"
+      >
+      </div>
 
       <div class="grid lg:grid-cols-5 gap-0">
         <div class="lg:col-span-3 p-8 sm:p-12">
           <div class="flex items-center gap-3 mb-5">
-            <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              {t('projects.status.development')}
+            <span
+              class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"
+              ></span>
+              {t("projects.status.development")}
             </span>
           </div>
 
-          <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-3">
-            {t('projects.hostalk.title')}
+          <h2
+            class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-3"
+          >
+            {t("projects.hostalk.title")}
           </h2>
-          <p class="text-lg text-blue-700 dark:text-blue-400 font-semibold mb-6">
-            {t('projects.hostalk.tagline')}
+          <p
+            class="text-lg text-blue-700 dark:text-blue-400 font-semibold mb-6"
+          >
+            {t("projects.hostalk.tagline")}
           </p>
 
-          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
-            {t('projects.hostalk.description')}
+          <p
+            class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8"
+          >
+            {t("projects.hostalk.description")}
           </p>
 
           <div class="flex flex-wrap gap-2 mb-8">
-            {techStack.map((tech) => (
-              <span class="inline-flex items-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                {tech}
-              </span>
-            ))}
+            {
+              techStack.map((tech) => (
+                <span class="inline-flex items-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  {tech}
+                </span>
+              ))
+            }
           </div>
 
           <div class="flex flex-wrap gap-3">
@@ -107,20 +139,22 @@ const automations = [
               href={detailHref}
               class="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 dark:bg-blue-500 dark:hover:bg-blue-400 transition-all"
             >
-              {t('projects.hostalk.cta.detail')}
+              {t("projects.hostalk.cta.detail")}
               <Icon name="arrow-right" class="w-4 h-4" />
             </a>
             <a
               href="https://hostalk.ferser.co"
               class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-all"
             >
-              {t('projects.hostalk.cta.app')}
+              {t("projects.hostalk.cta.app")}
               <Icon name="arrow-up-right" class="w-4 h-4" />
             </a>
           </div>
         </div>
 
-        <div class="lg:col-span-2 p-6 sm:p-8 lg:p-10 flex items-center border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-700">
+        <div
+          class="lg:col-span-2 p-6 sm:p-8 lg:p-10 flex items-center border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-700"
+        >
           <HostalkChatPreview />
         </div>
       </div>
@@ -129,111 +163,232 @@ const automations = [
     {/* Divisor — entregados */}
     <div class="flex items-center gap-3 mt-20 mb-8 fade-in-up">
       <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
-      <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-        {t('projects.delivered')}
+      <span
+        class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+      >
+        {t("projects.delivered")}
       </span>
       <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
     </div>
 
-    {/* Forzec — proyecto entregado */}
-    <article class="fade-in-up relative overflow-hidden rounded-3xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl">
-      <div class="absolute -inset-px rounded-3xl bg-gradient-to-r from-amber-500/20 via-orange-400/20 to-amber-500/20 blur-2xl opacity-40 -z-10"></div>
+    {/* Recogras — entrega destacada */}
+    <article
+      class="fade-in-up group/recogras relative overflow-hidden rounded-3xl border border-sky-100 dark:border-sky-900/40 bg-white dark:bg-slate-900 shadow-2xl shadow-sky-900/5"
+    >
+      {/* Halo de marca (azul → teal → ámbar) */}
+      <div
+        class="absolute -inset-px rounded-3xl bg-gradient-to-r from-sky-500/25 via-teal-400/25 to-amber-400/25 blur-2xl opacity-50 group-hover/recogras:opacity-80 transition-opacity -z-10"
+      >
+      </div>
+      {/* Filo superior con el degradado de la marca */}
+      <div
+        class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#0f5e92] via-[#178a93] to-[#3aa06a]"
+      >
+      </div>
 
       <div class="grid lg:grid-cols-5 gap-0">
         <div class="lg:col-span-3 p-8 sm:p-12">
-          <div class="flex items-center gap-3 mb-5">
-            <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">
+          <div class="flex flex-wrap items-center gap-2.5 mb-5">
+            <span
+              class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300"
+            >
               <Icon name="rocket" class="w-3 h-3" />
-              {t('projects.status.launched')}
+              {t("projects.status.launched")}
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300"
+            >
+              <Icon name="recycle" class="w-3 h-3" />
+              {lang === "es" ? "Economía circular" : "Circular economy"}
             </span>
           </div>
 
-          <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-3">
-            {t('projects.forzec.title')}
+          <h2
+            class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-3"
+          >
+            {t("projects.recogras.title")}
           </h2>
-          <p class="text-lg text-amber-700 dark:text-amber-400 font-semibold mb-6">
-            {t('projects.forzec.tagline')}
+          <p
+            class="text-lg text-[#15679b] dark:text-sky-300 font-semibold mb-6"
+          >
+            {t("projects.recogras.tagline")}
           </p>
 
-          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
-            {t('projects.forzec.description')}
+          <p
+            class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8"
+          >
+            {t("projects.recogras.description")}
           </p>
 
           <div class="flex flex-wrap gap-2 mb-8">
-            {forzecTech.map((tech) => (
-              <span class="inline-flex items-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                {tech}
-              </span>
-            ))}
+            {
+              recograsTech.map((tech) => (
+                <span class="inline-flex items-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  {tech}
+                </span>
+              ))
+            }
           </div>
 
           <div class="flex flex-wrap gap-3">
             <a
-              href={forzecHref}
+              href={recograsHref}
               target="_blank"
               rel="noopener"
-              class="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all"
+              class="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-[#0f5e92] via-[#178a93] to-[#3aa06a] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-600/25 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-0.5 transition-all"
             >
-              {t('projects.forzec.cta')}
-              <Icon name="arrow-up-right" class="w-4 h-4" />
+              {t("projects.recogras.cta")}
+              <Icon
+                name="arrow-up-right"
+                class="w-4 h-4 transition-transform group-hover/recogras:translate-x-0.5 group-hover/recogras:-translate-y-0.5"
+              />
             </a>
           </div>
         </div>
 
-        <div class="lg:col-span-2 relative flex items-center justify-center p-6 sm:p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-700 bg-gradient-to-br from-amber-500 to-orange-600 overflow-hidden">
-          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.25),transparent)]"></div>
-          <div class="relative text-center">
-            <Icon name="spray-can" class="w-16 h-16 mx-auto text-white/90 mb-3" />
-            <span class="block text-4xl font-black tracking-tighter text-white">Forzec</span>
-            <span class="block text-sm font-semibold text-white/80 mt-1">forzec.com</span>
+        <div
+          class="lg:col-span-2 relative min-h-[18rem] border-t lg:border-t-0 lg:border-l border-slate-100 dark:border-slate-700 overflow-hidden"
+        >
+          <RecograsOgCard class="absolute inset-0 h-full w-full" />
+
+          <div class="pointer-events-none absolute inset-0 z-10">
+            <Icon
+              name="recycle"
+              class="absolute -right-10 -top-10 w-44 h-44 text-white/15 animate-[spin_26s_linear_infinite]"
+            />
+            <Icon
+              name="recycle"
+              class="absolute left-5 bottom-7 w-16 h-16 text-white/15 animate-[spin_20s_linear_infinite_reverse]"
+            />
+            <Icon
+              name="droplets"
+              class="absolute right-8 bottom-10 w-12 h-12 text-white/20"
+            />
+            <Icon
+              name="droplet"
+              class="absolute left-8 top-10 w-9 h-9 text-white/20"
+            />
+            <Icon
+              name="droplet"
+              class="absolute right-1/4 top-6 w-6 h-6 text-white/15"
+            />
+            <Icon
+              name="leaf"
+              class="absolute left-1/4 bottom-5 w-7 h-7 text-white/15"
+            />
           </div>
         </div>
       </div>
     </article>
 
+    {/* Forzec — entrega anterior, en segundo plano */}
+    <a
+      href={forzecHref}
+      target="_blank"
+      rel="noopener"
+      class="fade-in-up group mt-6 flex items-center gap-4 sm:gap-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-md transition-all"
+    >
+      <span
+        class="shrink-0 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white"
+      >
+        <Icon name="spray-can" class="w-6 h-6" />
+      </span>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center gap-2 flex-wrap">
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">
+            {t("projects.forzec.title")}
+          </h3>
+          <span
+            class="inline-flex items-center gap-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300"
+          >
+            <Icon name="rocket" class="w-2.5 h-2.5" />
+            {t("projects.status.launched")}
+          </span>
+        </div>
+        <p class="text-sm text-slate-500 dark:text-slate-400 truncate">
+          {t("projects.forzec.tagline")}
+        </p>
+      </div>
+      <span
+        class="shrink-0 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 dark:text-slate-300 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors"
+      >
+        <span class="hidden sm:inline">forzec.com</span>
+        <Icon
+          name="arrow-up-right"
+          class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+        />
+      </span>
+    </a>
+
     {/* Divisor — automatizaciones */}
     <div class="flex items-center gap-3 mt-20 mb-8 fade-in-up">
       <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
-      <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-        {lang === 'es' ? 'Automatizaciones' : 'Automations'}
+      <span
+        class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+      >
+        {lang === "es" ? "Automatizaciones" : "Automations"}
       </span>
       <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
     </div>
 
     <div class="grid md:grid-cols-2 gap-5">
-      {automations.map((a) => (
-        <article class="fade-in-up flex flex-col rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition-all">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white">
-              <Icon name={a.icon} class="w-5 h-5" />
-            </span>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{a.name}</h3>
-          </div>
-          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 flex-1">{a.desc}</p>
-          <div class="flex flex-wrap gap-2 mb-5">
-            {a.tags.map((tag) => (
-              <span class="inline-flex items-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">{tag}</span>
-            ))}
-          </div>
-          <a href={a.demoHref} target="_blank" rel="noopener" data-auto-demo class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 transition">
-            {lang === 'es' ? 'Ver demo' : 'View demo'}
-            <Icon name="arrow-up-right" class="w-3.5 h-3.5" />
-          </a>
-        </article>
-      ))}
+      {
+        automations.map((a) => (
+          <article class="fade-in-up flex flex-col rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition-all">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white">
+                <Icon name={a.icon} class="w-5 h-5" />
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                {a.name}
+              </h3>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 flex-1">
+              {a.desc}
+            </p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              {a.tags.map((tag) => (
+                <span class="inline-flex items-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <a
+              href={a.demoHref}
+              target="_blank"
+              rel="noopener"
+              data-auto-demo
+              class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 transition"
+            >
+              {lang === "es" ? "Ver demo" : "View demo"}
+              <Icon name="arrow-up-right" class="w-3.5 h-3.5" />
+            </a>
+          </article>
+        ))
+      }
     </div>
 
-    <div class="mt-16 fade-in-up rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 p-8 sm:p-12 text-center">
-      <div class="inline-flex w-12 h-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 mb-4">
+    <div
+      class="mt-16 fade-in-up rounded-3xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 p-8 sm:p-12 text-center"
+    >
+      <div
+        class="inline-flex w-12 h-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 mb-4"
+      >
         <Icon name="github" class="w-6 h-6" />
       </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3">{t('projects.more.title')}</h2>
-      <p class="text-slate-600 dark:text-slate-300 mb-6 max-w-xl mx-auto">{t('projects.more.subtitle')}</p>
+      <h2
+        class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3"
+      >
+        {t("projects.more.title")}
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mb-6 max-w-xl mx-auto">
+        {t("projects.more.subtitle")}
+      </p>
       <a
         href="https://github.com/orgs/ferser-co/repositories"
         class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:border-slate-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 transition-all"
       >
-        {t('projects.more.cta')}
+        {t("projects.more.cta")}
         <Icon name="arrow-up-right" class="w-4 h-4" />
       </a>
     </div>
@@ -243,11 +398,12 @@ const automations = [
 <script is:inline>
   // Abre las demos de automatización con window.open para que su botón "Volver"
   // pueda cerrar la pestaña y regresar a esta.
-  document.querySelectorAll('a[data-auto-demo]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  document.querySelectorAll("a[data-auto-demo]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
+        return;
       e.preventDefault();
-      window.open(a.href, '_blank');
+      window.open(a.href, "_blank");
     });
   });
 </script>

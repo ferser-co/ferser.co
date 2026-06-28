@@ -14,12 +14,12 @@ const t = lang === 'es'
 ---
 
 {!onOfertaPage && (
-  <div id="promo-banner" class="relative bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 text-white text-sm">
+  <div id="promo-banner" class="fixed inset-x-0 top-0 z-[60] bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 text-white text-sm">
     <a href={ofertaHref} class="block hover:brightness-110 transition-[filter]">
-      <div class="mx-auto max-w-7xl px-4 sm:px-12 py-2.5 flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-center">
+      <div class="mx-auto max-w-7xl px-10 sm:px-12 py-2.5 flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-center">
         <span class="font-bold">{t.eyebrow}</span>
         <span class="hidden sm:inline opacity-70">·</span>
-        <span class="opacity-95">
+        <span class="hidden sm:inline opacity-95">
           {t.body}{' '}
           <strong>
             <span class="cur cur-cop">$500K COP</span>
@@ -48,17 +48,40 @@ const t = lang === 'es'
       (function () {
         const banner = document.getElementById('promo-banner');
         if (!banner) return;
+        const root = document.documentElement;
+
         if (localStorage.getItem('promo-dismissed') === '1') {
           banner.remove();
           return;
         }
+
+        // La banda es fija y se monta por encima del header; empujamos el
+        // header (y reservamos espacio) según su altura real, que cambia si
+        // el texto se parte en móvil.
+        const sync = () => root.style.setProperty('--promo-h', banner.offsetHeight + 'px');
+        root.classList.add('promo-active');
+        sync();
+        window.addEventListener('resize', sync);
+
         document.getElementById('promo-dismiss')?.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
+          window.removeEventListener('resize', sync);
           banner.remove();
+          root.classList.remove('promo-active');
+          root.style.removeProperty('--promo-h');
           localStorage.setItem('promo-dismissed', '1');
         });
       })();
     </script>
   </div>
 )}
+
+<style is:global>
+  /* Con la banda visible, el header fijo se desplaza hacia abajo para no
+     taparla. En la página de oferta la banda no se renderiza y .promo-active
+     nunca se añade, así que el header queda pegado arriba como siempre. */
+  html.promo-active header.fixed {
+    top: var(--promo-h, 0px);
+  }
+</style>

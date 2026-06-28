@@ -1,4 +1,6 @@
 ---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/playfair-display';
 import '../_shared/base.css';
 
 interface Props {
@@ -22,19 +24,15 @@ const { title, description, isDemo = false, noindex = false, heroPreload } = Ast
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#92400e" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* Fuentes locales: Inter + Playfair Display (@fontsource, en frontmatter).
+        Mantenemos el preconnect a Unsplash, que sí es un origen externo de imágenes. */}
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
 
     {heroPreload && <link rel="preload" as="image" href={heroPreload} fetchpriority="high" />}
 
     <style>
       .font-display {
-        font-family: 'Playfair Display', Georgia, serif;
+        font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
       }
     </style>
   </head>

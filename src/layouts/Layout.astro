@@ -1,8 +1,10 @@
 ---
+import '@fontsource-variable/inter';
 import '../styles/global.css';
-import { getLangFromUrl, useTranslations, alternateLangPath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, alternateLangPath, localizedPath } from '../i18n/utils';
 import type { TranslationKey } from '../i18n/ui';
 import PromoBanner from '../components/PromoBanner.astro';
+import LangSuggestion from '../components/LangSuggestion.astro';
 
 interface Props {
   titleKey: TranslationKey;
@@ -10,32 +12,65 @@ interface Props {
   pathWithoutLang: string;
   /** og:type — default 'website', usar 'article' o 'product' donde aplique */
   ogType?: string;
+  /** Tipo schema.org de la página (WebPage, ContactPage, CollectionPage, AboutPage…) */
+  pageType?: string;
   /** Si la página debe excluirse de buscadores */
   noindex?: boolean;
-  /** JSON-LD adicional inyectado en <head> */
-  jsonLd?: object;
-  /** Imagen para la vista previa al compartir (PNG/JPG). Default: /og-image.png */
+  /** Nodos JSON-LD extra (objeto o array) que se añaden al @graph de la página */
+  jsonLd?: object | object[];
+  /** Override de la imagen de vista previa. Si se omite, se usa la generada por URL. */
   ogImage?: string;
 }
 
-const { titleKey, descriptionKey, pathWithoutLang, ogType = 'website', noindex = false, jsonLd, ogImage = '/og-image.png' } = Astro.props;
+const {
+  titleKey,
+  descriptionKey,
+  pathWithoutLang,
+  ogType = 'website',
+  pageType = 'WebPage',
+  noindex = false,
+  jsonLd,
+  ogImage,
+} = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const alt = alternateLangPath(lang, pathWithoutLang);
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const title = t(titleKey);
 const description = t(descriptionKey);
-const ogImageUrl = new URL(ogImage, Astro.site).toString();
-const siteName = 'Ferser';
 
-// JSON-LD Organization por defecto (sobreescribible por la prop jsonLd)
-const defaultLd = {
-  '@context': 'https://schema.org',
+// Imagen OG por URL: cada página tiene su propia tarjeta generada en build
+// (/og/<slug>-<lang>.png). Se puede sobreescribir con la prop ogImage.
+const OG_KEYS: Record<string, string> = {
+  '/': 'home',
+  '/contacto': 'contact',
+  '/proyectos': 'projects',
+  '/proyectos/hostalk': 'hostalk',
+  '/privacidad': 'privacy',
+  '/oferta-de-lanzamiento': 'offer',
+};
+const ogKey = OG_KEYS[pathWithoutLang];
+const resolvedOgImage = ogImage ?? (ogKey ? `/og/${ogKey}-${lang}.png` : '/og-image.png');
+const ogImageUrl = new URL(resolvedOgImage, Astro.site).toString();
+const siteName = 'Ferser';
+const ogLocale = lang === 'es' ? 'es_CO' : 'en_US';
+const schemaLang = lang === 'es' ? 'es-CO' : 'en-US';
+
+// ─── JSON-LD en @graph: cómo lo arman los sitios grandes ────────────────────
+// Identificadores estables y enlazados entre nodos por @id.
+const orgId = 'https://ferser.co/#organization';
+const siteId = 'https://ferser.co/#website';
+const pageId = `${canonical}#webpage`;
+const breadcrumbId = `${canonical}#breadcrumb`;
+
+const organization = {
   '@type': 'Organization',
+  '@id': orgId,
   name: 'Ferser',
   url: 'https://ferser.co',
-  logo: 'https://ferser.co/favicon.svg',
-  description: 'Ingeniería de software a la medida en Colombia.',
+  logo: { '@type': 'ImageObject', url: 'https://ferser.co/favicon.svg' },
+  image: 'https://ferser.co/og-image.png',
+  description: 'Soluciones informáticas a la medida en Colombia.',
   sameAs: [
     'https://github.com/ferser-co',
     'https://www.linkedin.com/in/zebastian-fernandez-05705b168/',
@@ -43,11 +78,75 @@ const defaultLd = {
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'contacto@ferser.co',
+    telephone: '+573052532602',
     contactType: 'customer service',
+    areaServed: ['CO', 'ES', 'US'],
     availableLanguage: ['Spanish', 'English'],
   },
 };
-const ldData = jsonLd ?? defaultLd;
+
+const website = {
+  '@type': 'WebSite',
+  '@id': siteId,
+  url: 'https://ferser.co',
+  name: 'Ferser',
+  description: 'Soluciones informáticas a la medida en Colombia.',
+  inLanguage: schemaLang,
+  publisher: { '@id': orgId },
+};
+
+// Migas: Inicio → (sección) → página actual. Etiquetas localizadas.
+const TRAILS: Record<string, { es: string; en: string; path: string }[]> = {
+  '/': [],
+  '/contacto': [{ es: 'Contacto', en: 'Contact', path: '/contacto' }],
+  '/proyectos': [{ es: 'Proyectos', en: 'Projects', path: '/proyectos' }],
+  '/proyectos/hostalk': [
+    { es: 'Proyectos', en: 'Projects', path: '/proyectos' },
+    { es: 'hosTalk', en: 'hosTalk', path: '/proyectos/hostalk' },
+  ],
+  '/privacidad': [{ es: 'Privacidad', en: 'Privacy', path: '/privacidad' }],
+  '/oferta-de-lanzamiento': [
+    { es: 'Oferta de lanzamiento', en: 'Launch offer', path: '/oferta-de-lanzamiento' },
+  ],
+};
+const homeLabel = lang === 'es' ? 'Inicio' : 'Home';
+const trail = TRAILS[pathWithoutLang] ?? [];
+const crumbItems = [
+  { name: homeLabel, url: new URL(localizedPath(lang, '/'), Astro.site).toString() },
+  ...trail.map((c) => ({
+    name: lang === 'es' ? c.es : c.en,
+    url: new URL(localizedPath(lang, c.path), Astro.site).toString(),
+  })),
+];
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  '@id': breadcrumbId,
+  itemListElement: crumbItems.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: c.url,
+  })),
+};
+
+const webpage = {
+  '@type': pageType,
+  '@id': pageId,
+  url: canonical,
+  name: title,
+  description,
+  inLanguage: schemaLang,
+  isPartOf: { '@id': siteId },
+  about: { '@id': orgId },
+  primaryImageOfPage: { '@type': 'ImageObject', url: ogImageUrl },
+  breadcrumb: { '@id': breadcrumbId },
+};
+
+const extra = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const ldData = {
+  '@context': 'https://schema.org',
+  '@graph': [organization, website, webpage, breadcrumb, ...extra],
+};
 ---
 
 <!doctype html>
@@ -57,7 +156,9 @@ const ldData = jsonLd ?? defaultLd;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex
+      ? <meta name="robots" content="noindex, nofollow" />
+      : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)" />
 
@@ -78,7 +179,8 @@ const ldData = jsonLd ?? defaultLd;
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={title} />
-    <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_CO'} />
 
     {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
@@ -87,13 +189,8 @@ const ldData = jsonLd ?? defaultLd;
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={title} />
 
-    {/* Fuentes — preconnect acelera la primera conexión TLS */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    {/* Fuente Inter servida en local vía @fontsource-variable/inter
+        (importada en el frontmatter). Sin peticiones a fonts.googleapis.com. */}
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
@@ -136,102 +233,13 @@ const ldData = jsonLd ?? defaultLd;
   <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 text-slate-900 antialiased overflow-x-hidden dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 transition-colors">
     <PromoBanner />
     <slot />
+    <LangSuggestion pathWithoutLang={pathWithoutLang} />
 
+    {/* JS no crítico (bundleado y diferido por Astro): interacciones de UI y
+        personalización por región. Ambos corren tras el parse, sin bloquear. */}
     <script>
-      const observer = new IntersectionObserver(
-        (entries, obs) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              obs.unobserve(entry.target);
-            }
-          }
-        },
-        { threshold: 0.1 },
-      );
-      document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
-
-      // Theme toggle (delegado, soporta múltiples botones)
-      function applyTheme(dark) {
-        document.documentElement.classList.toggle('dark', dark);
-        localStorage.setItem('theme', dark ? 'dark' : 'light');
-      }
-
-      // Currency dropdown: abrir/cerrar menú + seleccionar opción
-      function setCurrency(c) {
-        document.documentElement.setAttribute('data-currency', c);
-        localStorage.setItem('currency', c);
-        closeCurrencyMenus();
-      }
-      function closeCurrencyMenus() {
-        document.querySelectorAll('[data-currency-menu]').forEach((m) => m.classList.add('hidden'));
-        document.querySelectorAll('[data-currency-trigger]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-      }
-      function toggleCurrencyMenu(trigger) {
-        const dropdown = trigger.closest('[data-currency-dropdown]');
-        const menu = dropdown?.querySelector('[data-currency-menu]');
-        const isOpen = !menu.classList.contains('hidden');
-        closeCurrencyMenus();
-        if (!isOpen) {
-          menu.classList.remove('hidden');
-          trigger.setAttribute('aria-expanded', 'true');
-        }
-      }
-
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('[data-theme-toggle]')) {
-          const isDark = document.documentElement.classList.contains('dark');
-          applyTheme(!isDark);
-          return;
-        }
-        const trigger = e.target.closest('[data-currency-trigger]');
-        if (trigger) {
-          e.stopPropagation();
-          toggleCurrencyMenu(trigger);
-          return;
-        }
-        const pick = e.target.closest('[data-currency-pick]');
-        if (pick) {
-          e.stopPropagation();
-          setCurrency(pick.getAttribute('data-currency-pick'));
-          return;
-        }
-        // Click fuera → cerrar
-        if (!e.target.closest('[data-currency-dropdown]')) {
-          closeCurrencyMenus();
-        }
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeCurrencyMenus();
-      });
-
-      // Upgrade async por IP — corrige cuando la TZ del navegador no coincide
-      // con la región real (caso típico: VPN, navegador con TZ no actualizada).
-      // No corre si el usuario ya eligió explícitamente.
-      (async function () {
-        if (localStorage.getItem('currency')) return;
-        const html = document.documentElement;
-        const current = html.getAttribute('data-currency');
-        try {
-          const controller = new AbortController();
-          const timer = setTimeout(() => controller.abort(), 3000);
-          const r = await fetch('https://ipapi.co/json/', { signal: controller.signal });
-          clearTimeout(timer);
-          if (!r.ok) return;
-          const d = await r.json();
-          const EUR_COUNTRIES = new Set([
-            // Eurozona
-            'AT','BE','CY','DE','EE','ES','FI','FR','GR','HR','IE','IT','LT','LU','LV','MT','NL','PT','SI','SK',
-            // Europa cercana (preferimos EUR sobre USD)
-            'GB','CH','NO','SE','DK','IS','LI','MC','SM','VA','AD',
-          ]);
-          let next;
-          if (d.country_code === 'CO') next = 'COP';
-          else if (EUR_COUNTRIES.has(d.country_code)) next = 'EUR';
-          else next = 'USD';
-          if (next !== current) html.setAttribute('data-currency', next);
-        } catch (_) {}
-      })();
+      import '../scripts/ui';
+      import '../scripts/geo';
     </script>
   </body>
 </html>

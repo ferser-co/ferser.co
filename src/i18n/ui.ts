@@ -7,7 +7,7 @@ export const defaultLang = 'es';
 
 export const ui = {
   es: {
-    'meta.home.title': 'Ferser - Ingeniería de Software a la Medida',
+    'meta.home.title': 'Ferser - Soluciones Informáticas a la Medida',
     'meta.home.description': 'Transformamos tu empresa con desarrollo de software de alto impacto, arquitectura cloud y consultoría estratégica.',
     'meta.contact.title': 'Contacto - Ferser',
     'meta.contact.description': 'Conecta con Ferser. Estamos listos para escuchar sobre tu proyecto.',
@@ -22,7 +22,7 @@ export const ui = {
     'meta.automatizaciones.title': 'Automatizaciones - Ferser',
     'meta.automatizaciones.description': 'Simuladores interactivos de automatizaciones para comercios locales: control de acceso, alertas de facturación y más.',
 
-    'nav.tagline': 'Ingeniería de software enfocada en resolver tus necesidades',
+    'nav.tagline': 'Soluciones informáticas enfocadas en resolver tus necesidades',
     'nav.contact': 'Contáctanos',
     'nav.back': 'Volver al inicio',
 
@@ -53,6 +53,7 @@ export const ui = {
     'services.training.desc': 'Ofrecemos capacitación especializada en herramientas tecnológicas para mejorar el desempeño de tu equipo.',
     'services.automation.title': 'Automatizaciones',
     'services.automation.desc': 'Conectamos tus herramientas y automatizamos tareas repetitivas: integraciones, flujos de trabajo y bots que le ahorran horas a tu equipo.',
+    'services.cta': 'Saber más',
 
     'home.featured.eyebrow': 'Proyecto destacado',
     'home.featured.cta': 'Ver detalle',
@@ -64,9 +65,12 @@ export const ui = {
     'contact.email.desc': 'Para consultas generales y propuestas detalladas.',
     'contact.chat.title': 'Chat Directo',
     'contact.chat.desc': 'Respuesta rápida vía WhatsApp para dudas puntuales.',
-    'contact.global.title': 'Disponibilidad Global',
-    'contact.global.desc': 'Somos una startup 100% remota. Operamos de forma asíncrona para cubrir diferentes zonas horarias.',
-    'contact.global.status': 'Atención Activa (L-V)',
+    'contact.hours.title': 'Horario de atención',
+    'contact.hours.tz': 'Hora de Colombia (GMT-5)',
+    'contact.hours.weekdays': 'Lunes a viernes',
+    'contact.hours.saturday': 'Sábado',
+    'contact.hours.sunday': 'Domingo',
+    'contact.hours.closed': 'Cerrado',
     'contact.channels.title': 'Otros canales',
 
     'form.title': 'Cuéntanos sobre tu proyecto',
@@ -97,6 +101,10 @@ export const ui = {
     'projects.forzec.tagline': 'Landing de producto — limpieza técnica premium',
     'projects.forzec.description': 'Sitio single-page que diseñamos y publicamos para Forzec, una crema técnica multisuperficie. Carga veloz, enfoque en conversión y llamados a la acción directos a WhatsApp y a la tienda.',
     'projects.forzec.cta': 'Visitar el sitio',
+    'projects.recogras.title': 'Recogras',
+    'projects.recogras.tagline': 'Sitio de servicios — recolección certificada de aceite usado',
+    'projects.recogras.description': 'Sitio que diseñamos y pusimos en producción para Recogras, empresa de recolección certificada de aceite de cocina usado y trampa grasa en Cartagena. Carga veloz, optimizado para móvil, con SEO, mapa y contacto directo por WhatsApp.',
+    'projects.recogras.cta': 'Visitar el sitio',
     'projects.hostalk.title': 'hosTalk',
     'projects.hostalk.tagline': 'Traductor de voz en tiempo real para la recepción de hoteles',
     'projects.hostalk.description': 'Comunicación en tiempo real entre huéspedes y staff de hotel, cada uno en su idioma. Reconocimiento de voz integrado y traducción a más de 80 idiomas. Arquitectura asíncrona pensada para latencia sub-segundo y soporte de WebSockets para conversaciones simultáneas.',
@@ -156,14 +164,14 @@ export const ui = {
     'hostalk.cta.back': 'Ver todos los proyectos',
 
     'footer.copyright': '© 2026 Todos los derechos reservados.',
-    'footer.contact_copy': '© 2026 Ferser. Ingeniería de Software a la Medida.',
+    'footer.contact_copy': '© 2026 Ferser. Soluciones Informáticas a la Medida.',
     'footer.privacy': 'Privacidad',
     'footer.projects': 'Proyectos',
 
     'privacy.h1': 'Política de privacidad',
     'privacy.updated': 'Última actualización: 8 de mayo de 2026',
     'privacy.intro.title': '1. Quiénes somos',
-    'privacy.intro.body': 'Ferser es una iniciativa de ingeniería de software con sede en Colombia. Esta política describe cómo recolectamos, usamos y protegemos los datos personales que nos compartes a través de ferser.co.',
+    'privacy.intro.body': 'Ferser es una iniciativa de soluciones informáticas con sede en Colombia. Esta política describe cómo recolectamos, usamos y protegemos los datos personales que nos compartes a través de ferser.co.',
     'privacy.data.title': '2. Qué datos recolectamos',
     'privacy.data.body': 'Solo recolectamos los datos que nos envías voluntariamente a través del formulario de contacto: nombre, correo electrónico, asunto y mensaje. No usamos cookies de seguimiento, analítica de terceros, ni perfilamos tu navegación.',
     'privacy.use.title': '3. Para qué los usamos',
@@ -180,7 +188,7 @@ export const ui = {
     'privacy.contact.body': 'Para cualquier consulta sobre privacidad escríbenos a contacto@ferser.co.',
   },
   en: {
-    'meta.home.title': 'Ferser - Custom Software Engineering',
+    'meta.home.title': 'Ferser - Custom Software Solutions',
     'meta.home.description': 'We transform your business with high-impact software development, cloud architecture and strategic consulting.',
     'meta.contact.title': 'Contact - Ferser',
     'meta.contact.description': 'Get in touch with Ferser. We are ready to hear about your project.',
@@ -195,7 +203,7 @@ export const ui = {
     'meta.automatizaciones.title': 'Automations - Ferser',
     'meta.automatizaciones.description': 'Interactive automation simulators for local businesses: access control, billing alerts and more.',
 
-    'nav.tagline': 'Software engineering focused on solving your needs',
+    'nav.tagline': 'Software solutions focused on solving your needs',
     'nav.contact': 'Contact us',
     'nav.back': 'Back to home',
 
@@ -226,6 +234,7 @@ export const ui = {
     'services.training.desc': 'We offer specialized training in technology tools to improve your team performance.',
     'services.automation.title': 'Automations',
     'services.automation.desc': 'We connect your tools and automate repetitive tasks: integrations, workflows and bots that save your team hours.',
+    'services.cta': 'Learn more',
 
     'home.featured.eyebrow': 'Featured project',
     'home.featured.cta': 'View details',
@@ -237,9 +246,12 @@ export const ui = {
     'contact.email.desc': 'For general inquiries and detailed proposals.',
     'contact.chat.title': 'Direct Chat',
     'contact.chat.desc': 'Quick reply via WhatsApp for specific questions.',
-    'contact.global.title': 'Global Availability',
-    'contact.global.desc': 'We are a 100% remote startup. We operate asynchronously to cover different time zones.',
-    'contact.global.status': 'Active support (Mon-Fri)',
+    'contact.hours.title': 'Business hours',
+    'contact.hours.tz': 'Colombia time (GMT-5)',
+    'contact.hours.weekdays': 'Monday–Friday',
+    'contact.hours.saturday': 'Saturday',
+    'contact.hours.sunday': 'Sunday',
+    'contact.hours.closed': 'Closed',
     'contact.channels.title': 'Other channels',
 
     'form.title': 'Tell us about your project',
@@ -270,6 +282,10 @@ export const ui = {
     'projects.forzec.tagline': 'Product landing — premium technical cleaning',
     'projects.forzec.description': 'A single-page site we designed and shipped for Forzec, a multi-surface technical cleaning cream. Fast loading, conversion-focused, with calls to action straight to WhatsApp and the store.',
     'projects.forzec.cta': 'Visit the site',
+    'projects.recogras.title': 'Recogras',
+    'projects.recogras.tagline': 'Services site — certified used-oil collection',
+    'projects.recogras.description': 'A site we designed and shipped to production for Recogras, a certified used-cooking-oil and grease-trap collection company in Cartagena. Fast loading, mobile-optimized, with SEO, maps and direct WhatsApp contact.',
+    'projects.recogras.cta': 'Visit the site',
     'projects.hostalk.title': 'hosTalk',
     'projects.hostalk.tagline': 'Real-time voice translator for hotel front desks',
     'projects.hostalk.description': 'Real-time communication between hotel guests and staff, each in their own language. Built-in speech recognition and translation across 80+ languages. Async architecture designed for sub-second latency and WebSockets support for simultaneous conversations.',
@@ -329,14 +345,14 @@ export const ui = {
     'hostalk.cta.back': 'See all projects',
 
     'footer.copyright': '© 2026 All rights reserved.',
-    'footer.contact_copy': '© 2026 Ferser. Custom Software Engineering.',
+    'footer.contact_copy': '© 2026 Ferser. Custom Software Solutions.',
     'footer.privacy': 'Privacy',
     'footer.projects': 'Projects',
 
     'privacy.h1': 'Privacy policy',
     'privacy.updated': 'Last updated: May 8, 2026',
     'privacy.intro.title': '1. Who we are',
-    'privacy.intro.body': 'Ferser is a software engineering initiative based in Colombia. This policy describes how we collect, use and protect the personal data you share with us through ferser.co.',
+    'privacy.intro.body': 'Ferser is a software solutions initiative based in Colombia. This policy describes how we collect, use and protect the personal data you share with us through ferser.co.',
     'privacy.data.title': '2. What data we collect',
     'privacy.data.body': 'We only collect the data you voluntarily send us through the contact form: name, email, subject and message. We do not use tracking cookies, third-party analytics, or browsing profiling.',
     'privacy.use.title': '3. How we use it',

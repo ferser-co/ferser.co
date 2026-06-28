@@ -1,4 +1,5 @@
 ---
+import '@fontsource-variable/inter';
 import '../_shared/base.css';
 
 interface Props {
@@ -22,14 +23,9 @@ const { title, description, isDemo = false, noindex = false, heroPreload } = Ast
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#4f46e5" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+    {/* Fuente Inter local (@fontsource-variable/inter, importada en frontmatter) */}
 
-    {heroPreload && <link rel="preload" as="image" href={heroPreload} fetchpriority="high" />}
+    {heroPreload &&<link rel="preload" as="image" href={heroPreload} fetchpriority="high" />}
   </head>
   <body class="bg-white text-slate-900 antialiased">
     <slot />

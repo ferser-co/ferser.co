@@ -132,6 +132,26 @@ const FORM_FALLBACK = 'https://formsubmit.co/contacto@ferser.co';
           messageField.value = `Hola, me interesa el plan ${planLabels[plan]} de la oferta de lanzamiento. Mi negocio es:\n\n`;
         }
       }
+
+      // Pre-llenar el asunto según ?servicio=X (tarjetas de servicios)
+      const servicio = params.get('servicio');
+      const isEn = (form.dataset.lang || 'es') === 'en';
+      const servicioLabels = isEn
+        ? { consulting: 'IT Consulting', dev: 'Software Development', training: 'IT Training', automation: 'Automations' }
+        : { consulting: 'Consultoría TI', dev: 'Desarrollo de Software', training: 'Capacitación Informática', automation: 'Automatizaciones' };
+      if (servicio && servicioLabels[servicio]) {
+        const label = servicioLabels[servicio];
+        const subjectField = form.querySelector('input[name="user_subject"]');
+        const messageField = form.querySelector('textarea[name="message"]');
+        if (subjectField && !subjectField.value) {
+          subjectField.value = isEn ? `Interest in ${label}` : `Interés en ${label}`;
+        }
+        if (messageField && !messageField.value) {
+          messageField.value = isEn
+            ? `Hi, I'm interested in your ${label} service. My business is:\n\n`
+            : `Hola, me interesa su servicio de ${label}. Mi negocio es:\n\n`;
+        }
+      }
     } catch (_) {}
 
     form.addEventListener('submit', async (e) => {
