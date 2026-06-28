@@ -1,5 +1,7 @@
 ---
 import '@fontsource-variable/inter';
+// URL hasheada del subset latino (el que realmente usamos) para precargarlo.
+import interLatinUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import { getLangFromUrl, useTranslations, alternateLangPath, localizedPath } from '../i18n/utils';
 import type { TranslationKey } from '../i18n/ui';
@@ -154,6 +156,11 @@ const ldData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {/* Precarga del subset latino de Inter: baja en paralelo y temprano,
+        acortando la cadena crítica y acelerando el LCP del texto. */}
+    <link rel="preload" href={interLatinUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex

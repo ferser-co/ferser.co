@@ -81,30 +81,39 @@ if (suggestEl && !dismissed) {
 const currencyOverridden = !!localStorage.getItem('currency');
 const needsGeo = !currencyOverridden || (!!suggestEl && !dismissed);
 
-if (needsGeo) {
-  (async function () {
-    try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 3000);
-      const r = await fetch('https://ipapi.co/json/', { signal: controller.signal });
-      clearTimeout(timer);
-      if (!r.ok) return;
-      const data = await r.json();
-      const cc: string = data.country_code || '';
-      if (!cc) return;
+async function runGeoLookup() {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3000);
+    const r = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+    clearTimeout(timer);
+    if (!r.ok) return;
+    const data = await r.json();
+    const cc: string = data.country_code || '';
+    if (!cc) return;
 
-      // Moneda: solo si el usuario no eligió una explícitamente.
-      if (!currencyOverridden) {
-        const next = currencyFromCountry(cc);
-        if (next !== html.getAttribute('data-currency')) {
-          html.setAttribute('data-currency', next);
-        }
+    // Moneda: solo si el usuario no eligió una explícitamente.
+    if (!currencyOverridden) {
+      const next = currencyFromCountry(cc);
+      if (next !== html.getAttribute('data-currency')) {
+        html.setAttribute('data-currency', next);
       }
-
-      // Idioma: afinamos la sugerencia con el país real.
-      reconcileLang(langFromCountry(cc));
-    } catch {
-      // Silencioso: la página ya funciona con los valores por defecto.
     }
-  })();
+
+    // Idioma: afinamos la sugerencia con el país real.
+    reconcileLang(langFromCountry(cc));
+  } catch {
+    // Silencioso: la página ya funciona con los valores por defecto.
+  }
+}
+
+if (needsGeo) {
+  // Fuera de la ruta crítica: esperamos a que la página cargue y el hilo quede
+  // inactivo, para no competir con los recursos críticos ni penalizar el LCP.
+  const schedule = () =>
+    'requestIdleCallback' in window
+      ? window.requestIdleCallback(runGeoLookup, { timeout: 2500 })
+      : setTimeout(runGeoLookup, 1500);
+  if (document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule, { once: true });
 }
